@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Image:</b>
+  <%= @picture.image %>
+</p>
+
+<p>
+  <b>Thumb:</b>
+  <%= @picture.thumb %>
+</p>
+
+<p>
+  <b>Big:</b>
+  <%= @picture.big %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @picture.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @picture.description %>
+</p>
+
+<p>
+  <b>Link:</b>
+  <%= @picture.link %>
+</p>
+
+<p>
+  <b>Item Id:</b>
+  <%= @picture.item_id %>
+</p>
+
+<%= link_to 'Edit', edit_picture_path(@picture) %> |
+<%= link_to 'Back', pictures_path %>

@@ -1,0 +1,121 @@
+
+/* COLORS ---------------------------------------------------------- */
+/* line 1, /Users/Jonas/Projects/repo/windows/scss/demo/_demo.scss */
+
+
+
+/* line 13, /Users/Jonas/Projects/repo/windows/scss/demo/_demo.scss */
+
+/* line 26, /Users/Jonas/Projects/repo/windows/scss/demo/_demo.scss */
+.window:nth-child(1)  {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  margin-top: -170px;
+}
+/* line 31, /Users/Jonas/Projects/repo/windows/scss/demo/_demo.scss */
+
+/* line 38, /Users/Jonas/Projects/repo/windows/scss/demo/_demo.scss */
+
+/* line 49, /Users/Jonas/Projects/repo/windows/scss/demo/_demo.scss */
+
+/* line 67, /Users/Jonas/Projects/repo/windows/scss/demo/_demo.scss */
+
+/* line 77, /Users/Jonas/Projects/repo/windows/scss/demo/_demo.scss */
+
+/* line 92, /Users/Jonas/Projects/repo/windows/scss/demo/_demo.scss */
+
+/* line 102, /Users/Jonas/Projects/repo/windows/scss/demo/_demo.scss */
+
+
+/* line 119, /Users/Jonas/Projects/repo/windows/scss/demo/_demo.scss */
+
+
+/* CSS Document */
+/* line 4, /Users/Jonas/Projects/repo/windows/scss/demo/_btn.scss */
+::selection {
+  background-color: #55595c;
+  color: #fff;
+  text-shadow: 0 1px 0 #000;
+}
+
+/* line 9, /Users/Jonas/Projects/repo/windows/scss/demo/_btn.scss */
+::-moz-selection {
+  background-color: #55595c;
+  color: #fff;
+  text-shadow: 0 1px 0 #000;
+}
+
+/* line 38, /Users/Jonas/Projects/repo/windows/scss/demo/_btn.scss */
+
+
+/* line 49, /Users/Jonas/Projects/repo/windows/scss/demo/_btn.scss */
+
+
+/* line 69, /Users/Jonas/Projects/repo/windows/scss/demo/_btn.scss */
+
+
+/* line 126, /Users/Jonas/Projects/repo/windows/scss/demo/_btn.scss */
+.boxtuffs {
+  color: #7c7c84;
+  font: 12px Helvetica, Arial, sans-serif;
+  text-shadow: 0 -1px 0 black;
+  text-decoration: none;
+  -webkit-transition: all .2s ease-out;
+  -moz-transition: all .2s ease-out;
+  -o-transition: all .2s ease-out;
+}
+
+/* line 136, /Users/Jonas/Projects/repo/windows/scss/demo/_btn.scss */
+.boxtuffs:hover {
+  color: #27896a;
+}
+
+/* line 6, ../scss/main.scss */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 11, ../scss/main.scss */
+.window {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+/* line 18, ../scss/main.scss */
+.window:nth-child(1) {
+  background: #d5d7dd;
+  top: 0%;
+}
+
+/* line 18, ../scss/main.scss */
+.window:nth-child(2) {
+  background: inherit;
+  top: 100%;
+}
+
+/* line 18, ../scss/main.scss */
+.window:nth-child(3) {
+  background: #6ab29f;
+  top: 200%;
+}
+
+/* line 18, ../scss/main.scss */
+.window:nth-child(4) {
+  background: #333a3e;
+  top: 300%;
+}
+
+/* line 18, ../scss/main.scss */
+.window:nth-child(5) {
+  background: #d0482b;
+  top: 400%;
+}
+
+/* line 18, ../scss/main.scss */
+.window:nth-child(6) {
+  background: #231f20;
+  top: 500%;
+}

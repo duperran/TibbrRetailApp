@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="http://tibbr.localdomain.com/tibbr/connect/js/TIB.js"></script>
+
+  <title>TibbrRetailsApp</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<section id="0" class="window">
+
+
+            <script data-main="app/main" src="app/require.js"></script>
+
+
+            <div id="Banner" class="Banner_div">   
+
+                <hgroup>
+                    <h1>
+                        <a href="index.html" title="home"></a> 
+                    </h1>
+                    <h2 id="user_connected"></h2>
+
+                </hgroup>
+                <header id="header_menu" class="header_menu">
+                </header>
+
+            </div>
+
+            <div id="container">
+
+                <div id="main-content" class="main-content">
+
+
+
+
+                </div>
+
+            </div>
+        </section>
+<%= yield %>
+
+</body>
+</html>
