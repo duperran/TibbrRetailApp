@@ -11,7 +11,13 @@ class PicturesController < ApplicationController
   end
 
   def getitempicture
-    @pictures = Picture.find_all_by_item_id(params[:item_id]) 
+    @pictures = Picture.find_all_by_item_id(params[:item_id]); 
+    
+    if(params[:first_pic] =='true')
+      
+      @pictures = @pictures.first();
+      
+    end
     
     respond_to do |format|
       format.html # index.html.erb

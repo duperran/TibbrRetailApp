@@ -3,9 +3,6 @@ TibbrRetailsApp::Application.routes.draw do
   
 
 
-  
-
-
   scope "/retailapp" do
   resources :item_types
 
@@ -19,8 +16,16 @@ TibbrRetailsApp::Application.routes.draw do
   resources :collection_items_assocs
   resources :collections
   
+  resources :setups
+
+    
+  
     match '/itemType', :to => 'items#get_items_by_type'
     match 'itempictures', :to=> 'pictures#getitempicture'
+    match '/exploreResource', :to => 'explore#get_ressources'
+    match '/followStore', :to => 'stores#follow'
+    match '/unfollowStore', :to => 'stores#unfollow'
+
   end
 
   # The priority is based upon order of creation:

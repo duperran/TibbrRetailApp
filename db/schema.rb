@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130704145300) do
+ActiveRecord::Schema.define(:version => 20130712125947) do
 
   create_table "collection_items_assocs", :force => true do |t|
     t.string   "item_id"
@@ -54,6 +54,17 @@ ActiveRecord::Schema.define(:version => 20130704145300) do
     t.string   "item_id"
   end
 
+  create_table "setups", :force => true do |t|
+    t.string   "app_id"
+    t.string   "client_secret"
+    t.string   "server_url"
+    t.string   "system_admin_id"
+    t.string   "tenant_name"
+    t.string   "access_token"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "stores", :force => true do |t|
     t.string   "name"
     t.string   "street_number"
@@ -66,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20130704145300) do
     t.string   "manager"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.string   "tibbr_id"
   end
 
 end

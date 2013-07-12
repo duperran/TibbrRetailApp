@@ -22,6 +22,7 @@ define([
                   var sample13 = new ResourceType({name:"Top",id:"3_11",url:"items/top",parent_id:"3",resource_id:"3"});
                   var sample14 = new ResourceType({name:"Bags",id:"3_12",url:"items/bags",parent_id:"3",resource_id:"4"});
                   var sample15 = new ResourceType({name:"Accessories",id:"3_13",url:"items/acessories",parent_id:"3",resource_id:"5"});
+                  var sample16 = new ResourceType({name:"Create Store",id:"5",url:"stores/new",parent_id:null,resource_id:""});
 
                   
 
@@ -43,6 +44,7 @@ define([
                   this.add(sample13);
                   this.add(sample14);
                   this.add(sample15);
+
                   
                } 
             });

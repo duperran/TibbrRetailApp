@@ -27,10 +27,11 @@ class ItemsController < ApplicationController
       
     end   
     
+    puts "Count: #{@item.count}"
     
     respond_to do |format|
       format.json { 
-        json_hash = @item.paginate(:page => params[:page],:per_page =>params[:perpage]).as_json
+        json_hash ={:items => @item.paginate(:page => params[:page],:per_page =>params[:perpage]).as_json,:count =>@item.count}
         render json: json_hash.to_json
        }
     end
@@ -40,6 +41,8 @@ class ItemsController < ApplicationController
   # GET /items/1.json
   def show
     @item = Item.find(params[:id])
+    itemType = ItemType.find(@item.item_type_id)
+    puts "item #{ItemType.find(@item.item_type_id).name}"
     @item.pictures = Picture.find(:all)
     puts "pictures : #{@item.pictures}"
     respond_to do |format|
@@ -53,7 +56,7 @@ class ItemsController < ApplicationController
   # GET /items/new.json
   def new
     @item = Item.new
-
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @item }
@@ -70,8 +73,28 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(params[:item])
 
+    
+     
+    
+    
     respond_to do |format|
       if @item.save
+        
+        # Create the tibbr resource for the item
+        action_typ =  "og:comment"
+        itemTypeName =ItemType.find(@item.item_type_id).name.downcase 
+        publish_req = {:message=>{:rich_content=>"New #{itemTypeName} model has been created !"}, :action_type=>action_typ, :client_id=> session[:app_id], :resource=>{:app_id => session[:app_id], :key => "Item_#{@item.id}_#{@item.reference}", :title => "#{@item.reference}_#{@item.name}",:description => "test", :scope => "public", :type => "ad:item", :owners => [@current_user.id], :url => "#{APP_CONFIG[Rails.env]['retail']['root']}#items/#{itemTypeName}/#{@item.id}", :action_links => [{:url => "#{APP_CONFIG[Rails.env]['retail']['root']}#items/#{itemTypeName}/#{@item.id}", :label => "View", :display_target => "app"}] }}.to_json;
+
+        #encryptor = Encryptor.new(application_config_decrypt_key, "")
+        encryptor = Encryptor.new("947aafe0-e8b1-11e2-9fa4-a4199b34c982", "")
+        signed_hash_string = encryptor.encrypt(publish_req)
+
+       #  Tibbr::ExternalResourceAction.publish ({:client_id=> session[:app_id], :signed_hash=> publish_req})
+         
+        Tibbr::ExternalResourceAction.publish ({:client_id=> session[:app_id], :signed_hash=> signed_hash_string})
+         
+        tib_res = Tibbr::ExternalResource.find_by_resource_key({:resource => {:key => "ID_#{@store.id}", :resource_type => "ad:store"}, :client_id => session[:app_id]})
+        
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.json { render json: @item, status: :created, location: @item }
       else
