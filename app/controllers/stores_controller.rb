@@ -63,6 +63,9 @@ class StoresController < ApplicationController
         tib_res = Tibbr::ExternalResource.find_by_resource_key({:resource => {:key => "ID_#{@store.id}", :resource_type => "ad:store"}, :client_id => session[:app_id]})
         
         @store.tibbr_id = tib_res.id
+        @store.tibbr_key = "ID_#{@store.id}"
+
+        
         @store.save
         format.html { redirect_to @store, notice: 'Store was successfully created.' }
         format.json { render json: @store, status: :created, location: @store }
@@ -103,6 +106,7 @@ class StoresController < ApplicationController
   
   
   def followers
+    puts 'followers of stores'
     @store = Store.find(params[:id])
     followers = @store.followers
     followers
@@ -112,13 +116,25 @@ class StoresController < ApplicationController
     
     puts "CURRR USER #{@current_user}"
     @store = Store.find(params[:id])
-   # @store.follow
-     users = Array.new
-    users << @current_user.login
-    resp = Tibbr::ExternalResource.add_followers({:client_id => session[:app_id], :replace => false, :resource => {:key=>"ID_#{@store.id}", :resource_type => "ad:store"}, :users=>users})
+    @store.follow
+    
+    resultIsFollowing = following?
+    
+    puts "KKKKK #{resultIsFollowing}"
+  # puts "BEFORE FOLLOW #{@current_user}"
+   # users = Array.new
+   # users << @current_user.login
+    #resp = Tibbr::ExternalResource.add_followers({:client_id => session[:app_id], :replace => false, :resource => {:id=>@store.tibbr_id, :resource_type => "ad:store"}, :users=>users})
 
     respond_to do |format|
-      format.json {render  json: @store.as_json }
+        format.json {
+      
+      json_hash ={:resource => @store,
+                  :is_following => resultIsFollowing
+                  }
+        render json: json_hash.to_json
+      
+      }
     end
   end
   
@@ -126,15 +142,23 @@ class StoresController < ApplicationController
   
   def unfollow
     
-    puts "CURRR USER #{@current_user}"
     @store = Store.find(params[:id])
-   # @store.follow
-     users = Array.new
-    users << @current_user.login
-    resp = Tibbr::ExternalResource.remove_followers({:client_id => session[:app_id], :replace => false, :resource => {:key=>"ID_#{@store.id}", :resource_type => "ad:store"}, :users=>users})
-
+    @store.unfollow
+    # users = Array.new
+   # users << @current_user.login
+   # resp = Tibbr::ExternalResource.remove_followers({:client_id => session[:app_id], :replace => false, :resource => {:key=>@store.tibbr_key, :resource_type => "ad:store"}, :users=>users})
+resultIsFollowing = following?
+    
     respond_to do |format|
-      format.json {render  json: @store.as_json }
+      format.json {
+      
+      json_hash ={:resource => @store,
+                  :is_following => resultIsFollowing
+                  }
+        render json: json_hash.to_json
+      
+      }
+      
     end
   end
   

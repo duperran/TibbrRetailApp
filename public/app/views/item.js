@@ -15,7 +15,6 @@ define([
             
            console.log(options);
            
-           console.log("AVANT FETCH");
             this.collection = new ItemsCollection(null,{type:options.type});
             console.log(options.index);
             this.collection.searchTerm = options.index;
@@ -32,7 +31,6 @@ define([
             this.collection.fetch( {
                 success:function (collection,response){
                     //console.log("RES "+JSON.stringify(collection));
-                    console.log("DDQDZDZDZD");
                     that.render();
                     //that.pictures.searchTerm = "?item_id="+response[0].id;
                     that.pictures.searchTerm = "?item_id="+response.item[0].id;
@@ -58,16 +56,22 @@ define([
         },
          render: function(){
             var that=this;
-            console.log("ENTER RENDER "+JSON.stringify(this.collection.first().get("name")));
+            
             $(this.el).html(itemTemplate);
+            if (this.collection.length > 0){
+            console.log("ENTER RENDER "+JSON.stringify(this.collection));
+            
            _.each(this.collection.models[0].get("item"), function(curentItem,index){
                  //pourquoi $(this.el) ne marche pas  => OK parce que this pas défini, var that = this avant !!?
                  console.log("GET OBJECT:"+JSON.stringify(curentItem));
                  console.log("ssssss "+curentItem.id);
                 // $('body').find("#select_items").append('<option id="#'+index+'" class="selectItem" value="'+curentItem.id+'">'+curentItem.reference+'</option>');
-                 
-                 $('body').find("#test_truc").append('<tr class="item_row" id="'+curentItem.id+'"><td>'+curentItem.reference+"</td><td>"+curentItem.name+"</td><td>"+that.collection.first().get("name")+"</td></tr>")
+               console.log("******* "+JSON.stringify(that.collection.models[0]));
+
+                 $('body').find("#test_truc").append('<tr class="item_row" id="'+curentItem.id+'"><td>'+curentItem.reference+"</td><td>"+curentItem.name+"</td><td>"+that.collection.models[0].get("resource").name+"</td></tr>")
              })
+             
+            }
              //this.pictures.searchTerm = "?item_id="+this.collection.models[0].id;
             // this.coverFlow = new CoverFlowView(null,{pictures:this.pictures});
             // this.coverFlow.setElement(this.$('#cover_div')).render();

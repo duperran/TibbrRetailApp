@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130712125947) do
+ActiveRecord::Schema.define(:version => 20130716161939) do
 
   create_table "collection_items_assocs", :force => true do |t|
     t.string   "item_id"
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(:version => 20130712125947) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.string   "item_type_id"
+    t.string   "tibbr_id"
+    t.string   "tibbr_key"
   end
 
   create_table "pictures", :force => true do |t|
@@ -78,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20130712125947) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.string   "tibbr_id"
+    t.string   "tibbr_key"
   end
 
 end

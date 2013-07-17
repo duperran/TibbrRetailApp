@@ -1,3 +1,4 @@
+  require "encryptor"
 class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
@@ -83,18 +84,27 @@ class ItemsController < ApplicationController
         # Create the tibbr resource for the item
         action_typ =  "og:comment"
         itemTypeName =ItemType.find(@item.item_type_id).name.downcase 
-        publish_req = {:message=>{:rich_content=>"New #{itemTypeName} model has been created !"}, :action_type=>action_typ, :client_id=> session[:app_id], :resource=>{:app_id => session[:app_id], :key => "Item_#{@item.id}_#{@item.reference}", :title => "#{@item.reference}_#{@item.name}",:description => "test", :scope => "public", :type => "ad:item", :owners => [@current_user.id], :url => "#{APP_CONFIG[Rails.env]['retail']['root']}#items/#{itemTypeName}/#{@item.id}", :action_links => [{:url => "#{APP_CONFIG[Rails.env]['retail']['root']}#items/#{itemTypeName}/#{@item.id}", :label => "View", :display_target => "app"}] }}.to_json;
+        publish_req = {:message=>{:rich_content=>"New #{itemTypeName} model has been created !"}, :action_type=>action_typ, :client_id=> "101", :resource=>{:app_id => "101", :key => "Item_#{@item.id}_#{@item.reference}", :title => "#{@item.reference}_#{@item.name}",:description => "test", :scope => "public", :type => "ad:item", :owners => [@current_user.id], :url => "#{APP_CONFIG[Rails.env]['retail']['root']}#items/#{itemTypeName}/#{@item.id}", :action_links => [{:url => "#{APP_CONFIG[Rails.env]['retail']['root']}#items/#{itemTypeName}/#{@item.id}", :label => "View", :display_target => "app"}] }}.to_json;
 
         #encryptor = Encryptor.new(application_config_decrypt_key, "")
-        encryptor = Encryptor.new("947aafe0-e8b1-11e2-9fa4-a4199b34c982", "")
+        encryptor = Encryptor.new("0b6f5820-ee35-11e2-96bc-1e88e5a0e6a9", "")
         signed_hash_string = encryptor.encrypt(publish_req)
 
        #  Tibbr::ExternalResourceAction.publish ({:client_id=> session[:app_id], :signed_hash=> publish_req})
          
-        Tibbr::ExternalResourceAction.publish ({:client_id=> session[:app_id], :signed_hash=> signed_hash_string})
+        Tibbr::ExternalResourceAction.publish ({:client_id=> '101', :signed_hash=> signed_hash_string})
          
-        tib_res = Tibbr::ExternalResource.find_by_resource_key({:resource => {:key => "ID_#{@store.id}", :resource_type => "ad:store"}, :client_id => session[:app_id]})
+        tib_res = Tibbr::ExternalResource.find_by_resource_key({:resource => {:key => "Item_#{@item.id}_#{@item.reference}", :resource_type => "ad:item"}, :client_id => '101'})
         
+        
+        @item.tibbr_id = tib_res.id
+        @item.tibbr_key = "Item_#{@item.id}_#{@item.reference}"
+        
+        puts "1 #{tib_res.id}"
+        puts "2 #{@item.tibbr_key}"
+        puts "3 #{@item.tibbr_key}"
+     
+        @item.save
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.json { render json: @item, status: :created, location: @item }
       else
@@ -131,4 +141,77 @@ class ItemsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  
+  def followers
+        puts 'followers of items'
+
+    @item = Store.find(params[:id])
+    followers = @item.followers
+    followers
+  end
+
+  def follow
+    
+    puts "CURRR USER #{@current_user}"
+    @item = Item.find(params[:id])
+    puts "LAAAAA #{@item.id}"
+    @item.follow
+    
+    resultIsFollowing = following?
+    
+    puts "KKKKK #{resultIsFollowing}"
+  # puts "BEFORE FOLLOW #{@current_user}"
+   # users = Array.new
+   # users << @current_user.login
+    #resp = Tibbr::ExternalResource.add_followers({:client_id => session[:app_id], :replace => false, :resource => {:id=>@store.tibbr_id, :resource_type => "ad:store"}, :users=>users})
+
+    respond_to do |format|
+        format.json {
+      
+      json_hash ={:resource => @item,
+                  :is_following => resultIsFollowing
+                  }
+        render json: json_hash.to_json
+      
+      }
+    end
+  end
+  
+  
+  
+  def unfollow
+    
+    @item = Item.find(params[:id])
+    @item.unfollow
+    # users = Array.new
+   # users << @current_user.login
+   # resp = Tibbr::ExternalResource.remove_followers({:client_id => session[:app_id], :replace => false, :resource => {:key=>@store.tibbr_key, :resource_type => "ad:store"}, :users=>users})
+    resultIsFollowing = following?
+    
+    respond_to do |format|
+      format.json {
+      
+      json_hash ={:resource => @item,
+                  :is_following => resultIsFollowing
+                  }
+        render json: json_hash.to_json
+      
+      }
+      
+    end
+  end
+  
+  
+  def following?
+    followers = @item.followers
+    return false if followers.nil?
+    followers.items.each do |f|
+      return true if f.id == @current_user.id
+    end
+
+    return false
+  end
+  
+ 
 end

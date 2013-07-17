@@ -46,9 +46,27 @@ define([
                         //pourquoi $(this.el) ne marche pas  => OK parce que this pas défini, var that = this avant !!?
                         console.log("GET OBJECT:" + JSON.stringify(curentItem));
                         // $('body').find("#select_items").append('<option id="#'+index+'" class="selectItem" value="'+curentItem.id+'">'+curentItem.reference+'</option>');
+                        
+                        
+                              var classButtonFollow = ""
+                        var textButtonFollow = ""
+
+                        if (curentItem.is_following) {
+                            classButtonFollow = "unfollow_resource_button"
+                            textButtonFollow = "unfollow"
+
+                        }
+                        else {
+                            classButtonFollow = "follow_resource_button"
+                            textButtonFollow = "follow"
+
+                        }
+                        
+                        
+                        
                         $(that.el).find("#test_truc").append('<li id="res_' + curentItem.id + '">'
                                 + '<div class="resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="app/images/default_pic.jpeg"></div><h6>' + curentItem.name + '</h6></div>'
-                                + '<div class="follow-resource"><a class="follow_resource_button" type="item" resourceid=' + curentItem.id + '><span>Follow</span></a></div></div>')
+                                + '<div class="follow-resource"><a class="'+classButtonFollow+'" type="item" resourceid=' + curentItem.id + '><span>'+textButtonFollow +'</span></a></div></div>')
                     })
 
                     // Display stores
@@ -148,7 +166,6 @@ define([
                 success: function(result) {
 
                     if (result.models.length > 0) {
-                        console.log('ou')
                         //$(that.el).find("li#res_"+currImage.id).find(".item_pic").css("background-image",'url("'+result.models[0].get("thumb")+'")');
                         $(that.el).find("li#res_" + currImage.id).find(".pic").attr("src", result.models[0].get("thumb"));
                     }
@@ -159,8 +176,7 @@ define([
 
         },
         follow: function(evt) {
-            that = this;
-            console.log("FOLLOW" + $(evt.target).parent().attr("resourceid"));
+            var that = this;
 
             if ($(evt.target).parent().attr("type") == "store") {
 
@@ -173,16 +189,29 @@ define([
                         id: $(evt.target).parent().attr("resourceid")
                     },
                     success: function(response) {
-                        console.log("SUCCESS");
-                        $(that).find("#test_truc").find('a[resourceid ="' + $(evt.target).parent().attr("resourceid") + '"]').attr("class","unfollow_resource_button")
+                        that.manageFollowCommand(response);
+
+                    }
+                });
+            }else{
+                request = $.ajax({
+                    url: "/retailapp/followItem",
+                    type: "get",
+                    data: {format: "json",
+                        id: $(evt.target).parent().attr("resourceid")
+                    },
+                    success: function(response) {
+                        that.manageFollowCommand(response);
+
                     }
                 });
             }
+            
+
 
         },
         unfollow: function(evt) {
-            that = this;
-            console.log("FOLLOW" + $(evt.target).parent().attr("resourceid"));
+            var that = this;
 
             if ($(evt.target).parent().attr("type") == "store") {
 
@@ -194,12 +223,41 @@ define([
                         id: $(evt.target).parent().attr("resourceid")
                     },
                     success: function(response) {
-                        console.log("SUCCESS");
-                        $(that).find("#test_truc").find('a[resourceid ="' + $(evt.target).parent().attr("resourceid") + '"]').attr("class","follow_resource_button")
+                        that.manageFollowCommand(response);
+                        
+                        // $(that).find("#test_truc").find('a[resourceid ="' + $(evt.target).parent().attr("resourceid") + '"]').attr("class","follow_resource_button")
+                    }
+                });
+                
+            }
+            else{
+                request = $.ajax({
+                    url: "/retailapp/unfollowItem",
+                    type: "get",
+                    data: {format: "json",
+                        id: $(evt.target).parent().attr("resourceid")
+                    },
+                    success: function(response) {
+                        that.manageFollowCommand(response);
+                       
                     }
                 });
             }
 
+        },
+        manageFollowCommand: function (resource,target){
+            console.log("dddddd "+JSON.stringify(resource))
+            if(resource.is_following == true){
+                console.log("eeeeee "+ $(this.el).find("#test_truc").find('a[resourceid ="' + resource.resource.id+'"]').text())
+               $(this.el).find("#test_truc").find('a[resourceid ="' + resource.resource.id+'"]').attr("class","unfollow_resource_button")
+               $(this.el).find("#test_truc").find('a[resourceid ="' + resource.resource.id+'"]').children("span").text("unfollow")
+               
+            }
+            else{
+                $(this.el).find("#test_truc").find('a[resourceid ="' +resource.resource.id+'"]').attr("class","follow_resource_button")
+                $(this.el).find("#test_truc").find('a[resourceid ="' + resource.resource.id+'"]').children("span").text("follow")
+
+            }
         }
     })
 

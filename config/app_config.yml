@@ -16,7 +16,7 @@ development:
     attachment_id_prefix: "tibbr_attachment"
     format: "json"
   retail:
-    root: "http://tibbr.localdomain.com/retail/"
+    root: "http://tibbr.localdomain.com/retailapp/"
   eval_instance: false
   authorise_user: false
 
@@ -37,6 +37,6 @@ production:
     attachment_id_prefix: "tibbr_attachment"
     format: "json"
   photos:
-    root: "http://tibbr.localdomain.com/retail/"
+    root: "http://tibbr.localdomain.com/retailapp/"
   eval_instance: false
   authorise_user: false

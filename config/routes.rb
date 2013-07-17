@@ -25,6 +25,10 @@ TibbrRetailsApp::Application.routes.draw do
     match '/exploreResource', :to => 'explore#get_ressources'
     match '/followStore', :to => 'stores#follow'
     match '/unfollowStore', :to => 'stores#unfollow'
+    
+    match '/followItem', :to => 'items#follow'
+    match '/unfollowItem', :to => 'items#unfollow'
+    root :to => 'home#home'
 
   end
 

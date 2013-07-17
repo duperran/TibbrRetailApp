@@ -65,14 +65,14 @@ require([
     //'windows',
     'galleria'
     ], function($, _, Backbone, AppView, AppRouter, Backstretch, /*Windows,*/ Galleria) {
-        
+        console.log("KKKKAKA")
         function _loadTIB(){
         
         
         var tib = document.createElement('script');
        
         tib.type = 'text/javascript';
-        tib.src =  'app/js/lib/tibbr.js';
+        tib.src =  '/app/js/lib/tibbr.js';
         document.body.appendChild(tib);
         
         //var galleria = document.createElement('script');
@@ -104,7 +104,7 @@ require([
     //If util.js calls define(), then this function is not fired until
     //util's dependencies have loaded, and the util argument will hold
     //the module value for "helper/util".
-    
+         console.log("FFFFFFF "+window.location.search);
     var appView = new AppView;
     appView.render();
     appView.initialize();

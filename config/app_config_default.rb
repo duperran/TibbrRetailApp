@@ -18,7 +18,7 @@ unless defined?(API_CONFIG)
       :format => :json
     },
     :retail =>{
-        :root => "http://tibbr.localdomain.com/retail/"
+        :root => "http://tibbr.localdomain.com/retailapp/"
     },
     :eval_instance => false,
     :authorise_user => false

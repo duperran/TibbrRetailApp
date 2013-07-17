@@ -1,12 +1,12 @@
 class Store < ActiveRecord::Base
-  attr_accessible :city, :country, :latitude, :longitude, :manager, :name, :street, :street_number, :zipcode, :tibbr_id
+  attr_accessible :city, :country, :latitude, :longitude, :manager, :name, :street, :street_number, :zipcode, :tibbr_id, :tibbr_key
   
   
   
   def tibbr_resource
     tib_res = nil
     begin
-      tib_res = Tibbr::ExternalResource.find "ID_#{self.id}"
+      tib_res = Tibbr::ExternalResource.find self.tibbr_id
     rescue
       nil
     end
@@ -26,7 +26,7 @@ class Store < ActiveRecord::Base
 
   def follow
     begin
-      Tibbr::ExternalResource.follow({:login => @current_user.id ,:resource => {:id => self.tibbr_id, :resource_type => "ad:store"}})
+      Tibbr::ExternalResource.follow({:resource => {:id => self.tibbr_id, :resource_type => "ad:store"}})
     rescue
       nil
     end
@@ -34,7 +34,7 @@ class Store < ActiveRecord::Base
 
   def unfollow
     begin
-      Tibbr::ExternalResource.unfollow({:resource => {:id => "ID_#{self.id}", :resource_type => "ad:store"}, :param => {:id => "ID_#{self.id}"}})
+      Tibbr::ExternalResource.unfollow({:resource => {:id => self.tibbr_id, :resource_type => "ad:store"}, :param => {:id => self.tibbr_id}})
     rescue
       nil
     end

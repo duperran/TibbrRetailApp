@@ -12,6 +12,7 @@ define([
 
   var appRouter = Backbone.Router.extend({
     routes: {
+      '/':'home',  
       'home/':'home',  
       'stores/': 'stores',
       'stores/:country/:index': 'stores_country',
@@ -26,7 +27,7 @@ define([
     this.appView = options.appView;
     },
     home : function(){
-        
+        console.log("HOME")
        var view =  Vm.create(this.appView,'Home',HomeView);
       
         //UNCOMMENT TO ACTIVE WINDOWS

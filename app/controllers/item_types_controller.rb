@@ -1,4 +1,7 @@
+require 'common_stuff'
 class ItemTypesController < ApplicationController
+    include CommonStuff
+
   # GET /item_types
   # GET /item_types.json
   def index
@@ -13,11 +16,33 @@ class ItemTypesController < ApplicationController
   # GET /item_types/1
   # GET /item_types/1.json
   def show
+   # Get items filtered by type (shoes, jeans...)
     @item_type = ItemType.find(params[:id])
-    @test = @item_type.item.paginate(:page => params[:page],:per_page =>1)
+    allitems = @item_type.item
+    
+    # Check what are the items the current_user is following
+    @itemsFollowed = Array.new
+    allitems.each do |item|
+      puts "here"
+      if (isfollowingitem? item)
+        puts "#{item.name}"
+              @itemsFollowed << item
+
+      end
+      
+      
+    end
+    puts "number of items followed: #{@itemsFollowed.count}"
+    
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @item_type.to_json(:include => {:item => @item_type}) }
+      format.json { #render json: @item_type.to_json(:include => {:item => @item_type}) 
+        
+        json_hash ={:resource => @item_type,
+                  :item => @itemsFollowed
+                  }
+        render json: json_hash.to_json
+      }
     end
   end
 

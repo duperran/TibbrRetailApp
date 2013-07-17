@@ -5,7 +5,7 @@ class ExploreController < ApplicationController
   include CommonStuff
 
   def get_ressources
-
+    # Retrieve items & stores
     if(params[:itemType] == '')
       
       items = Item.all
@@ -17,24 +17,36 @@ class ExploreController < ApplicationController
         a[:is_following] = isfollowingstore? a
       end
       
+       items.each do |a|
+        # Check if the user is following the item => method in module common_stuff
+        a[:is_following] = isfollowingitem? a
+      end
+      
       @items = items;
       @stores = stores; 
       puts "la"
       
+    # Retrieve strores  
     elsif(params[:itemType] == '4')
       stores = Store.all
       
       stores.each do |a|
-        # Check if the user is following the store => method in module common_stuff
+        # Check if the user is following the item => method in module common_stuff
         a[:is_following] = isfollowingstore? a
       end
       @stores = stores; 
       puts "edddzdz #{@stores}"
       @items=[];
+   
+    #Retrieve items
     else
        
       items = Item.find_all_by_item_type_id(params[:itemType])
       
+      items.each do |a|
+        # Check if the user is following the item => method in module common_stuff
+        a[:is_following] = isfollowingitem? a
+      end
       
       @items=items;
       @stores = [];
