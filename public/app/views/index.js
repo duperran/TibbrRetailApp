@@ -1,5 +1,6 @@
 define([
   'jquery',
+  'underscore',
   'backbone',
   'models/client',
   'collections/clients',
@@ -7,16 +8,16 @@ define([
   'views/home',
   'views/coverflow',
   'text!templates/app.html',
-], function($, Backbone,Client,Clients,ResourceTypeListView,HomeView,CoverFlowView,layoutTemplate){
+], function($,_,Backbone,Client,Clients,ResourceTypeListView,HomeView,CoverFlowView,layoutTemplate){
     
     var appView = Backbone.View.extend({
              el:$('body'),
-             initialize:function(){
+             initialize:function(options){
                  // console.log("lllllaaaaa " +$(this.el).html());
 
                 this.clients = new Clients(null,{view:this});
                 this.itemsIterr = 0;
-               
+                this.vent= this.options.vent;
              
          
              },
@@ -24,9 +25,10 @@ define([
                  
                //  console.log("ddddd "+$(this.el).text())
                  $(this.el).find('.header_menu').html(layoutTemplate);
-                 this.header = new ResourceTypeListView;
+
+                 this.header = new ResourceTypeListView({vent:this.vent});
                  this.mainContentDefault = new HomeView;
-                 this.coverFlow = new CoverFlowView;
+                 //this.coverFlow = new CoverFlowView;
 
       
                  this.header.setElement(this.$('#header_ul')).render();

@@ -10,8 +10,8 @@ define([
         initialize: function(options){
 
             this.model = this.options.resource;
-            this.url_target = this.options.url_target
-           // console.log(this.model.get("name"));
+            this.url_target = this.options.url_target;
+           
         },
         events:{
           "click .li_menu" : "showOrigin"  
@@ -26,7 +26,7 @@ define([
                 
          showOrigin: function(evt){
             console.log($(evt.target).parent().first().attr("id"));
-         }
+         },
         
         
     }

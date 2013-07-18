@@ -12,16 +12,21 @@ define([
     el:'#header_ul',
     id:'header_ul',
     tagName:'ul',
-    initialize: function(){
+    initialize: function(options){
       //  console.log("dans ressource view" +$(this.el).html())
         this.collection = new ResourcesCollection;
         this.stores = new StoresCollection;
         this.lines = new LinesCollection;
+          _.bindAll(this);
+        this.options.vent.bind("test:customEvent", this.refresh);
+        
+       // this.event_aggregator.trigger("test:customEvent")
         //console.log("ssqsffgg "+this.collection.size())
         
     },
-            
+                  
     render: function(){
+        console.log("HOP")
                  var that = this;
                  
                  //console.log("Dans Render resourceTypeList view "+ $(this.el).html());
@@ -32,13 +37,15 @@ define([
                  _.each(this.collection.models, function(currentRestype,index){
                      // console.log("dans la boucle " );
                       //console.log(currentRestype.get("id"));
-                       
                      var currentItem = new ResourceTypeItemView({resource:currentRestype, url_target:currentRestype.get("url")+"/"+currentRestype.get("resource_id")});
+         
 
                      if(currentRestype.get("parent_id") == null){
                         // console.log("dans IF");
                         //$(this.el).append('<li id="li'+currentRestype.get("id")+'"><a href="#">'+currentRestype.get("name")+'</a></li>');
                         $(this.el).append(currentItem.render().el);
+                       //currentItem.setElement(this.el).render();
+
                      }
                      else{
                          //console.log('else');
@@ -53,6 +60,7 @@ define([
                   
                   this.stores.searchTerm='';
                   this.stores.fetch({
+                      
                       success:function(collection,response){
                           
                           
@@ -63,7 +71,7 @@ define([
                               
                               
                               console.log("EL: "+$(that.el).find("#Paris").text())
-                               console.log("Country: "+currStore.city+" "+$(that.el).find("#"+currStore.city).text());
+                              console.log("Country: "+currStore.city+" "+$(that.el).find("#"+currStore.city).text());
                               if($(that.el).find("#"+currStore.city).parent().find("ul").length ==0){
                                   console.log("HHHHH");
                                   $(that.el).find("#"+currStore.city).parent().append("<ul></ul>")
@@ -81,6 +89,8 @@ define([
                      }         
                       
                   })
+                  
+                  // COLLECTION SECTION
                    this.lines.searchTerm='';
                   this.lines.fetch({
                       success: function (){
@@ -89,9 +99,24 @@ define([
                   });
                   return this;
        
-            },        
-    
-    
+            },   
+            refresh:function (){
+                
+               
+                console.log("refresh")
+this.collection = new ResourcesCollection;
+        this.stores = new StoresCollection;
+        this.lines = new LinesCollection;
+        
+        $(this.el).empty();
+        this.render();
+               
+            },
+            doSomething: function (){
+            console.log("eee")
+            
+            },
+          
     
     })
     

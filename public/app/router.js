@@ -25,6 +25,7 @@ define([
 
     initialize: function(options) {
     this.appView = options.appView;
+    this.vent = options.vent;
     },
     home : function(){
         console.log("HOME")
@@ -82,8 +83,9 @@ define([
 
      },
     explore: function() {
+     
 
-     var view =  Vm.create(this.appView,'Explore',ExploreView);
+     var view =  Vm.create(this.appView,'Explore',ExploreView,{vent:this.vent});
       view.render();
     
     

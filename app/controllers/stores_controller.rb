@@ -1,13 +1,25 @@
+require 'common_stuff'
 class StoresController < ApplicationController
+  
+  include CommonStuff
   require "encryptor"
   # GET /stores
   # GET /stores.json
   def index
     @stores = Store.all
+    @storesFollowed = Array.new
+    
+    @stores.each do |store|
+      if (isfollowingstore? store)
+              @storesFollowed << store
 
+      end
+    end
+    
+    puts "STORE FOLLOWED: #{@storesFollowed.count}"
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @stores }
+      format.json { render json: @storesFollowed }
     end
   end
 
