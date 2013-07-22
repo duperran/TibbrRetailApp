@@ -9,22 +9,28 @@ define([
 var StoreView = Backbone.View.extend({
     el:'.main-content', 
     initialize: function(options){
-        console.log("plop");
+        var that = this;
         this.stores = new StoresCollection;
         this.stores.searchTerm = "/"+options.index;
         this.stores.bind("change", this.render);
-
+        this.gadget_url = "http://tibbr.localdomain.com/a/gadgets/resource_messages.html";
         this.stores.fetch({
             success: function(collection,response){
                 
                 console.log("resp:"+JSON.stringify(response));
+                 that.gadget_url += '?client_id=75&type=ad:store&key='+response.tibbr_key
+                 that.render();
             },
             update:true        
         })
     },
+
     render : function(){
-        console.log("ENTER RENDER:"+JSON.stringify(this.stores))
-        $(this.el).html(StoresTemplate);
+        
+        //$(this.el).html(StoresTemplate,test);
+        var tmpl = _.template(StoresTemplate)
+       
+        $(this.el).html(tmpl({gadget_url:this.gadget_url}))
         $("#left").animate({height:"700px"},300);
         $("#left").animate({width :"400px"},300, function (){
             $("#shops_info").find('hgroup').delay(10).fadeIn(1000);

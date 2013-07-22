@@ -108,7 +108,11 @@ class StoresController < ApplicationController
   # DELETE /stores/1.json
   def destroy
     @store = Store.find(params[:id])
+      #  Tibbr::ExternalResourceAction.unpublish(@store.tibbr_id,{:client_id =>session[:app_id] })
+
     @store.destroy
+    
+    
 
     respond_to do |format|
       format.html { redirect_to stores_url }

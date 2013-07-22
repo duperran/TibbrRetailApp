@@ -43,12 +43,11 @@ class ItemsController < ApplicationController
   def show
     @item = Item.find(params[:id])
     itemType = ItemType.find(@item.item_type_id)
-    puts "item #{ItemType.find(@item.item_type_id).name}"
-    @item.pictures = Picture.find(:all)
-    puts "pictures : #{@item.pictures}"
+#    @item.pictures = Picture.find(:all)
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @item.to_json(:include => {:pictures => @item})}
+     # format.json { render json: @item.to_json(:include => {:pictures => @item})}
+     format.json { render json: @item.to_json}
 
     end
   end

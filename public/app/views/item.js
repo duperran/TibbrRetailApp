@@ -26,11 +26,12 @@ define([
             this.pictures = new ImagesCollection;
             this.pictures.bind("change", this.displayCoverFlow);
 
-            
+             this.resource_gadget_base = "http://tibbr.localdomain.com/a/gadgets/resource_messages.html"
              var that = this;
             this.collection.fetch( {
                 success:function (collection,response){
                     //console.log("RES "+JSON.stringify(collection));
+
                     that.render();
                     //that.pictures.searchTerm = "?item_id="+response[0].id;
                     that.pictures.searchTerm = "?item_id="+response.item[0].id;
@@ -56,8 +57,9 @@ define([
         },
          render: function(){
             var that=this;
-            
-            $(this.el).html(itemTemplate);
+            var tmpl = _.template(itemTemplate)
+       
+             $(this.el).html(tmpl({gadget_url:this.gadget_url}))
             if (this.collection.length > 0){
             console.log("ENTER RENDER "+JSON.stringify(this.collection));
             
@@ -152,6 +154,10 @@ define([
                     });
                 console.log("sqsq "+JSON.stringify(selectItem));
                  this.pictures.searchTerm="?item_id="+selectItem[0].id;
+                 this.url_gagdet_item = this.resource_gadget_base+ '?client_id=75&type=ad:item&key='+selectItem[0].tibbr_key
+                 
+                 console.log("FFSFFFF "+this.url_gagdet_item)
+                 $(this.el).find("#tibbr_wall").attr("src",this.url_gagdet_item)
                  this.updateCoverFlow();
              
              

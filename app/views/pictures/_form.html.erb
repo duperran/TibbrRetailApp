@@ -35,10 +35,18 @@
     <%= f.label :link %><br />
     <%= f.text_field :link %>
   </div>
- <div class="field">
-    <%= f.label :item_id %><br />
-    <%= f.text_field :item_id %>
-  </div>
+ <!--div class="field">
+    <!--%= f.label :item_id %><br /-->
+     <!--%= f.text_field :item_id %-->
+  </div-->
+
+<%= f.fields_for :item do |ff| %>
+	  <div class="field">
+	 <%= ff.label :item_id %><br />
+         <%= ff.text_field :item_id %>
+	  </div>
+<% end %>
+
   <div class="actions">
     <%= f.submit %>
   </div>

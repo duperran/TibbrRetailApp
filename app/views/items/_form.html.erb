@@ -21,7 +21,8 @@
   </div>
   <div class="field">
     <%= f.label :item_type_id %><br />
-    <%= f.text_field :item_type_id %>
+    <!--%= f.text_field :item_type_id %-->
+    <%= f.select :item_type_id, [['Shoes','1'],['Jeans','2'],['Top','3']] %>
   </div>
   <div class="actions">
     <%= f.submit %>
