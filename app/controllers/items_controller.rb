@@ -83,7 +83,7 @@ class ItemsController < ApplicationController
         # Create the tibbr resource for the item
         action_typ =  "og:comment"
         itemTypeName =ItemType.find(@item.item_type_id).name.downcase 
-        publish_req = {:message=>{:rich_content=>"New #{itemTypeName} model has been created !"}, :action_type=>action_typ, :client_id=> session[:app_id], :resource=>{:app_id => session[:app_id], :key => "Item_#{@item.id}_#{@item.reference}", :title => "#{@item.reference}_#{@item.name}",:description => "test", :scope => "public", :type => "ad:item", :owners => [@current_user.id], :url => "#{APP_CONFIG[Rails.env]['retail']['root']}#items/#{itemTypeName}/#{@item.id}", :action_links => [{:url => "#{APP_CONFIG[Rails.env]['retail']['root']}#items/#{itemTypeName}/#{@item.id}", :label => "View", :display_target => "app"}] }}.to_json;
+        publish_req = {:message=>{:rich_content=>"New #{itemTypeName} model has been created !"}, :action_type=>action_typ, :client_id=> session[:app_id], :resource=>{:app_id => session[:app_id], :key => "Item_#{@item.id}_#{@item.reference}", :title => "#{@item.reference}_#{@item.name}",:description => "test", :scope => "public", :type => "ad:item", :owners => [@current_user.id], :url => "#{APP_CONFIG[Rails.env]['retail']['root']}#items/#{itemTypeName}/#{@item.item_type_id}/#{@item.id}", :action_links => [{:url => "#{APP_CONFIG[Rails.env]['retail']['root']}#items/#{itemTypeName}/#{@item.item_type_id}/#{@item.id}", :label => "View", :display_target => "app"}] }}.to_json;
 
         #encryptor = Encryptor.new(application_config_decrypt_key, "")
         encryptor = Encryptor.new("947aafe0-e8b1-11e2-9fa4-a4199b34c982", "")

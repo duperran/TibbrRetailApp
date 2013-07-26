@@ -1,5 +1,26 @@
+<style>
+    .store_container{
+        
+        width: 100%;
+        overflow-x: auto;
+    }
+    
+    .store_info{
+        float: right;
+        margin-right: -400px;
+
+    }
+    
+    
+    .tib_store{
+        float: left;
+        width: 1300px;
+    }
+    
+</style>    
+
 <div id="myTest">
-<table>
+<!--table>
                 <tr>
                     <td>
                        <div id="left">
@@ -50,7 +71,7 @@
                            <div id="shops_geo" class="info_div">
                                  
                                
-                           </div--> 
+                           </div> 
                             
                        </div>
                     </td>
@@ -66,7 +87,50 @@
                 </tr>
                 
                 
-            </table>
+            </table-->
+    
+    <div class="store_container">
+        
+        
+        <div class="tib_store" id="center">
+        <div id="tib_container_store" class="info_div tib_container">
+                   <iframe id="tibbr_wall" src="<%= gadget_url %>"></iframe>
+         </div>
+            
+        </div>  
+        
+        
+        
+        <div class="store_info" id="left">
+            
+            
+            <section class="ac-container">
+				<div>
+					<input id="ac-1" name="accordion-1" type="checkbox" />
+					<label for="ac-1">Where</label>
+					<article class="ac-small">
+						<p>Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows.</p>
+					</article>
+				</div>
+				
+				<div id="shops_geo">
+					<input id="ac-3" name="accordion-1" type="checkbox" />
+					<label for="ac-3">Map</label>
+					<article class="ac-large">
+					</article>
+				</div>
+				<div>
+					<input id="ac-4" name="accordion-1" type="checkbox" />
+					<label for="ac-4">Contact</label>
+					<article class="ac-large">
+						<p>You see? It's curious. Ted did figure it out - time travel. And when we get back, we gonna tell everyone. How it's possible, how it's done, what the dangers are. But then why fifty years in the future when the spacecraft encounters a black hole does the computer call it an 'unknown entry event'? Why don't they know? If they don't know, that means we never told anyone. And if we never told anyone it means we never made it back. Hence we die down here. Just as a matter of deductive logic. </p>
+					</article>
+				</div>
+			</section>
+            
+        </div>
+    </div>
+    
     
 </div>
     

@@ -15,6 +15,7 @@ requirejs.config({
     backstretch :'js/lib/backstretch',
    // windows : 'js/lib/jquery.windows',
     galleria: 'js/lib/gallery/galleria-1.2.9.min',
+    bootstrap: 'js/lib/bootstrap/js/bootstrap',
     
     
     //templates: '../../templates',
@@ -49,6 +50,11 @@ requirejs.config({
            exports: 'Galleria'
         },
         
+       'bootstrap':{
+            depts: ['jquery'],
+            exports: 'Bootstrap'
+        }
+        
       
    }
     
@@ -63,9 +69,9 @@ require([
     'router',
     'backstretch',
     //'windows',
-    'galleria'
+    'galleria',
+    //'bootstrap'
     ], function($, _, Backbone, AppView, AppRouter, Backstretch, /*Windows,*/ Galleria) {
-        console.log("KKKKAKA")
         function _loadTIB(){
         
         
@@ -76,10 +82,10 @@ require([
         document.body.appendChild(tib);
         
         //var galleria = document.createElement('script');
-       
-        //tib.type = 'text/javascript';
-        //tib.src =  'app/js/lib/gallery/galleria.classic.min.js';
-       // document.body.appendChild(galleria);
+       var bootstrap = document.createElement('script');
+       bootstrap.type = 'text/javascript';
+       bootstrap.src =  'app/js/lib/bootstrap/js/bootstrap.js';
+          document.body.appendChild(bootstrap);
         
      
 
@@ -114,7 +120,11 @@ require([
         
     var appRouter = new AppRouter({appView: appView,vent:vent}); // Router initialization 
     Backbone.history.start(); // Backbone start
+    
+    
    
+    
+     
 });
 
 

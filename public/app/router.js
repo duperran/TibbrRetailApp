@@ -20,6 +20,7 @@ define([
       'collections/':'collections',
       //'items/:index': 'items',
       'items/:category/:index': 'items_category',
+      'items/:category/:index/:resourceid': 'items_category',
       'explore/':'explore',
     },
 
@@ -30,7 +31,12 @@ define([
     home : function(){
         console.log("HOME")
        var view =  Vm.create(this.appView,'Home',HomeView);
-      
+       $(document).ready(function() {
+    
+   $('#myCarousel').carousel({
+      interval: 3200
+    })
+  });
         //UNCOMMENT TO ACTIVE WINDOWS
 
         // $('body').find('section#1').css("display","block");
@@ -69,12 +75,12 @@ define([
 
 
      },       
-     items_category: function(category,index){
+     items_category: function(category,index,resourceid){
      console.log("category "+category+" index "+index);
 
         console.log("dans items_category: ");
         $('body').find('section#1').css("display","none");
-      var view =  Vm.create(this.appView,'Item',ItemView,{type:category,index:index});
+      var view =  Vm.create(this.appView,'Item',ItemView,{type:category,index:index,resourceid:resourceid});
       view.render();
 
       //var view = new ItemView({type:category,index:index})

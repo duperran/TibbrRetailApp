@@ -37,8 +37,18 @@ define([
                  _.each(this.collection.models, function(currentRestype,index){
                      // console.log("dans la boucle " );
                       //console.log(currentRestype.get("id"));
+                     
+                    /*var  url_string = JSON.stringify(currentRestype.get("url"));
+                     if (url_string.match("items")){
+                        var currentItem = new ResourceTypeItemView({resource:currentRestype, url_target:currentRestype.get("url")});
+
+                     }
+                     
+                     else{
+                        var currentItem = new ResourceTypeItemView({resource:currentRestype, url_target:currentRestype.get("url")+"/"+currentRestype.get("resource_id")});
+                     }*/
+                     
                      var currentItem = new ResourceTypeItemView({resource:currentRestype, url_target:currentRestype.get("url")+"/"+currentRestype.get("resource_id")});
-         
 
                      if(currentRestype.get("parent_id") == null){
                         // console.log("dans IF");
