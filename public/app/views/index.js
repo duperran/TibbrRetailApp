@@ -13,7 +13,6 @@ define([
     var appView = Backbone.View.extend({
              el:$('body'),
              initialize:function(options){
-                 // console.log("lllllaaaaa " +$(this.el).html());
 
                 this.clients = new Clients(null,{view:this});
                 this.itemsIterr = 0;
@@ -23,7 +22,6 @@ define([
              },
              render: function(){
                  
-               //  console.log("ddddd "+$(this.el).text())
                  $(this.el).find('.header_menu').html(layoutTemplate);
 
                  this.header = new ResourceTypeListView({vent:this.vent});
@@ -33,18 +31,9 @@ define([
       
                  this.header.setElement(this.$('#header_ul')).render();
                  this.mainContentDefault.setElement(this.$('#main-content')).render();
-                 
-                 //if($('body').find("section#1").length == 0){
-                   //  console.log("add element");
-                     //$('<section id="1" class="window"><div id="home2" class="home2"></div></section>').insertAfter("section#0");
-                 //}
-                 
-//                this.coverFlow.setElement(this.$('#cover_div')).render();
+  
                 
                  
-                 
-
-                 //console.log("return");
                  return this;
                 },
              events: {
@@ -57,7 +46,6 @@ define([
                  this.itemsIterr +=1;
                  var new_client = new Client({name:client_name,id:this.itemsIterr});
                  this.clients.add(new_client);
-                 //console.log(this.clients.size());
                  
              },
               addClientToList: function(model){

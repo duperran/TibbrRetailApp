@@ -16,7 +16,6 @@ class ItemsController < ApplicationController
   end
   
   def get_items_by_type
-    
    
     if(params[:itemType] == '')
       
@@ -56,7 +55,7 @@ class ItemsController < ApplicationController
   # GET /items/new.json
   def new
     @item = Item.new
-    
+    @picture = Picture.new
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @item }

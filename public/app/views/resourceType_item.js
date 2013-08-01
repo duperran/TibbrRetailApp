@@ -18,9 +18,15 @@ define([
         },
         render: function(){
           var that = this;
-          console.log("gggg "+JSON.stringify(this.model));
-          $(this.el).html('<li class="li_menu" id="li'+this.model.get("id")+'"><a href="#'+this.url_target+'" id="'+this.model.get("name")+'">'+this.model.get("name")+'</a></li>');
-          //console.log("sssssss "+$(this.el).html());
+          $(this.el).html('<a href="#'+this.url_target+'" id="'+this.model.get("name")+'">'+this.model.get("name")+'</a>');
+          $(this.el).attr('id', 'li'+this.model.get("id"))
+          
+        // BOOTSTRAP  
+        
+  //  $(this.el).append('<a class="dropdown-toggle" data-toggle="dropdown" href="#'+this.url_target+'" id="'+this.model.get("name")+'">'+this.model.get("name")+'</a>');
+        // END BOOTSTRAP
+          //  $(this.el).attr('id', 'li'+this.model.get("id")).addClass('dropdown')
+            //console.log("sssssss "+$(this.el).html());
           return this;
         } ,
                 

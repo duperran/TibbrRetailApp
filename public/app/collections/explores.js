@@ -9,7 +9,7 @@ define([
             
             },
              page: 1,
-             perpage:4,
+             perpage:10,
              searchTerm:""
 
                

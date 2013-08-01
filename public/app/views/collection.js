@@ -1,9 +1,8 @@
 define([
   'jquery',
   'backbone',
-  'tibbr',
   'text!templates/home.html',
-], function($, Backbone,Tibbr,homeTemplate){
+], function($, Backbone,NotFound){
   
     var CollectionView = Backbone.View.extend({
     el: '.main-content',
@@ -12,7 +11,8 @@ define([
         },
          render: function(){
      
-     
+            //$(this.el).html(NotFound);
+
          }
          
     }); 

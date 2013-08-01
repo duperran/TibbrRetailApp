@@ -3,10 +3,11 @@ define([
     'underscore',
     'backbone',
     'collections/explores',
+     'collections/autocompleteExplore',
     'collections/images',
     'views/resourceType',
     'text!templates/explore.html',
-], function($, _, Backbone, ItemsCollection, ImagesCollection,ResourceTypeListView, exploreTemplate) {
+], function($, _, Backbone, ItemsCollection, ExploreAutoCollection ,ImagesCollection,ResourceTypeListView, exploreTemplate) {
 
     var ExploreView = Backbone.View.extend({
         el: ".main-content",
@@ -15,7 +16,8 @@ define([
             // one request at a time
             this.isLoading = false;
             this.exploreCollection = new ItemsCollection();
-            this.vent = this.options.vent; 
+            this.vent = this.options.vent;
+            this.autoExploreCollection = new ExploreAutoCollection();
         },
         render: function() {
             $(this.el).html(exploreTemplate)
@@ -23,6 +25,9 @@ define([
 
             if (this.exploreCollection.models.length > 0)
                 this.load_pictures();
+            
+             TIB.parentApp.setFrameHeight($("#container").outerHeight(true)+50);
+
         },
         loadResults: function() {
             var that = this;
@@ -43,11 +48,8 @@ define([
                     // Display items
                     _.each(resources.models[0].get("items"), function(curentItem, index) {
                        
-                        //pourquoi $(this.el) ne marche pas  => OK parce que this pas défini, var that = this avant !!?
-                        // $('body').find("#select_items").append('<option id="#'+index+'" class="selectItem" value="'+curentItem.id+'">'+curentItem.reference+'</option>');
-                        
-                        
-                              var classButtonFollow = ""
+                    
+                        var classButtonFollow = ""
                         var textButtonFollow = ""
 
                         if (curentItem.is_following) {
@@ -64,7 +66,7 @@ define([
                         
                         
                         $(that.el).find("#test_truc").append('<li id="res_' + curentItem.id + '">'
-                                + '<div class="resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="app/images/default_pic.jpeg"></div><h6>' + curentItem.name + '</h6></div>'
+                                + '<div class="explore-resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="app/images/default_pic.jpeg"></div><h5>' + curentItem.name + '</h5></div>'
                                 + '<div class="follow-resource"><a class="'+classButtonFollow+'" type="item" resourceid=' + curentItem.id + '><span>'+textButtonFollow +'</span></a></div></div>')
                     })
 
@@ -72,7 +74,7 @@ define([
                     _.each(resources.models[0].get("stores"), function(curentItem, index) {
                         
                         //pourquoi $(this.el) ne marche pas  => OK parce que this pas défini, var that = this avant !!?
-                        console.log("STORES GET OBJECT:" + JSON.stringify(curentItem));
+                        //console.log("STORES GET OBJECT:" + JSON.stringify(curentItem));
                         // $('body').find("#select_items").append('<option id="#'+index+'" class="selectItem" value="'+curentItem.id+'">'+curentItem.reference+'</option>');
 
 
@@ -91,7 +93,7 @@ define([
                         }
 
                         $(that.el).find("#test_truc").append('<li id="res_' + curentItem.id + '">'
-                                + '<div class="resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="app/images/default_pic.jpeg"></div><h6>' + curentItem.name + '</h6></div>'
+                                + '<div class="explore-resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="app/images/default_pic.jpeg"></div><h5>' + curentItem.name + '</h5></div>'
                                 + '<div class="follow-resource"><a class="' + classButtonFollow + '" type="store" resourceid=' + curentItem.id + '><span>' + textButtonFollow + '</span></a></div></div>')
 
 
@@ -111,14 +113,19 @@ define([
 
                 }
             });
+
         },
         events: {
             'click a#more': 'more',
             'scroll .resource-item-directory': 'checkScroll',
              'click .resource_menu ul li span': 'more_menu',
             'click .follow_resource_button ': 'follow',
-            'click .unfollow_resource_button': 'unfollow'
+            'click .unfollow_resource_button': 'unfollow',
+            'focus .search_box_input': 'getAutocomplete',
+            'click .search_button' : 'searchResources',
+
         },
+        //NOT USED
         checkScroll: function() {
             var triggerPoint = 100; // 100px from the bottom
             if (!this.isLoading && this.el.scrollTop + this.el.clientHeight + triggerPoint > this.el.scrollHeight) {
@@ -133,7 +140,8 @@ define([
         },
         more_menu: function(evt) {
 
-
+            //Clean the search box
+            $(this.el).find(".search_box_input").val('');
             $(this.el).find(".selected").removeClass("selected");
             
             
@@ -176,8 +184,6 @@ define([
 
             if ($(evt.target).parent().attr("type") == "store") {
 
-
-    
                 request = $.ajax({
                     url: "/retailapp/followStore",
                     type: "get",
@@ -190,7 +196,7 @@ define([
                         //tirgger event to update stores list in menu and reflect the change 
                         that.vent.trigger("test:customEvent")
 
-                         // 
+                    
                          
                         // Not so good ... reset the header menu to reflect 'follow' update
                        // var header = new ResourceTypeListView;
@@ -229,20 +235,11 @@ define([
                     },
                     success: function(response) {
                         that.manageFollowCommand(response);
-                        console.log("TRIGGER customEvent")
-                        //tirgger event to update stores list in menu and reflect the change 
-                        //that.event_aggregator.trigger("test:customEvent")
+                        
                          
                          that.vent.trigger("test:customEvent")
 
-                         // Not so good ... reset the header menu to reflect 'follow' update
-                        //var header = new ResourceTypeListView;
-                        //header.setElement(that.$('#header_ul')).render();
-
-
-                        
-                        // $(that).find("#test_truc").find('a[resourceid ="' + $(evt.target).parent().attr("resourceid") + '"]').attr("class","follow_resource_button")
-                    }
+                         }
                 });
                 
             }
@@ -272,7 +269,108 @@ define([
                 $(this.el).find("#test_truc").find('a[resourceid ="' + resource.resource.id+'"]').children("span").text("follow")
 
             }
-        }
+        },
+         getAutocomplete: function () {
+            var that = this;
+            $(".search_box_input").autocomplete({
+                 source: function (request, response){
+                     
+                     
+                     that.autoExploreCollection.searchTerm = $(".search_box_input").val();
+                     var resources = that.autoExploreCollection.fetch({
+                         async:false,
+                        
+                     });
+                     var resourcesJSON = $.parseJSON(resources.responseText);
+                     
+                  
+                      
+                     response($.map(resourcesJSON.results,function(item,i) {
+                                 return {label : item.name,
+			                 value : item.name,
+                                         it: i,
+					}
+	              }));
+                      
+                      
+                                
+                    
+                 },
+                 open: function(){
+                 },        
+                 select: function(event, ui) {
+                  
+                    var plop = that.autoExploreCollection.models[0].get("results");
+                    $(that.el).find("#test_truc").empty();
+                     that.exploreCollection = new ItemsCollection([plop[ui.item.it]]);
+
+                    
+                                 // Display items
+                    _.each(that.exploreCollection.models, function(curentItem, index) {
+
+                        var classButtonFollow = ""
+                        var textButtonFollow = ""
+
+                        if (curentItem.get('is_following')) {
+                            classButtonFollow = "unfollow_resource_button"
+                            textButtonFollow = "unfollow"
+
+                        }
+                        else {
+                            classButtonFollow = "follow_resource_button"
+                            textButtonFollow = "follow"
+
+                        }
+                        
+                        
+                        
+                        $(that.el).find("#test_truc").append('<li id="res_' + curentItem.get('id') + '">'
+                                + '<div class="explore-resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="app/images/default_pic.jpeg"></div><h5>' + curentItem.get('name') + '</h5></div>'
+                                + '<div class="follow-resource"><a class="'+classButtonFollow+'" type="item" resourceid=' + curentItem.get('id') + '><span>'+textButtonFollow +'</span></a></div></div>')
+                    })
+                    
+                    
+                    
+                 }
+                
+            });
+         },
+         searchResources: function(){
+              this.autoExploreCollection.searchTerm = $(".search_box_input").val();
+               this.autoExploreCollection.fetch({
+                         async:false,
+                        
+                     });
+             $(this.el).find("#test_truc").empty();
+             $(this.el).find('#more_ul').hide();
+             this.exploreCollection = new ItemsCollection(this.autoExploreCollection.models[0].get("results"));
+             
+             var that = this;
+             _.each(this.exploreCollection.models, function(curentItem, index) {
+
+                        var classButtonFollow = ""
+                        var textButtonFollow = ""
+
+                        if (curentItem.get('is_following')) {
+                            classButtonFollow = "unfollow_resource_button"
+                            textButtonFollow = "unfollow"
+
+                        }
+                        else {
+                            classButtonFollow = "follow_resource_button"
+                            textButtonFollow = "follow"
+
+                        }
+                        
+                        
+                        
+                        $(that.el).find("#test_truc").append('<li id="res_' + curentItem.get('id') + '">'
+                                + '<div class="explore-resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="app/images/default_pic.jpeg"></div><h5>' + curentItem.get('name') + '</h5></div>'
+                                + '<div class="follow-resource"><a class="'+classButtonFollow+'" type="item" resourceid=' + curentItem.get('id') + '><span>'+textButtonFollow +'</span></a></div></div>')
+                    })
+ 
+         }
+                
     })
 
     return ExploreView;

@@ -65,4 +65,5 @@ class ApplicationController < ActionController::Base
     setup.decrypt_key
   end
   
+ 
 end

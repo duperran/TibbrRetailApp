@@ -1,5 +1,8 @@
 module ApplicationHelper
   
+   def app_url
+     @app_url = "tibbr.localdomain.com"
+   end
   
   
   def title(page_title)

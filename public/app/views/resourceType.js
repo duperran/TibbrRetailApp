@@ -9,8 +9,8 @@ define([
 ], function($, _, Backbone,StoresCollection,ResourcesCollection,LinesCollection,ResourceTypeItemView){
     
     var resources = Backbone.View.extend({
-    el:'#header_ul',
-    id:'header_ul',
+    el:'#header_ul2',
+    id:'header_ul2',
     tagName:'ul',
     initialize: function(options){
       //  console.log("dans ressource view" +$(this.el).html())
@@ -35,33 +35,22 @@ define([
                       
                       
                  _.each(this.collection.models, function(currentRestype,index){
-                     // console.log("dans la boucle " );
-                      //console.log(currentRestype.get("id"));
-                     
-                    /*var  url_string = JSON.stringify(currentRestype.get("url"));
-                     if (url_string.match("items")){
-                        var currentItem = new ResourceTypeItemView({resource:currentRestype, url_target:currentRestype.get("url")});
-
-                     }
-                     
-                     else{
-                        var currentItem = new ResourceTypeItemView({resource:currentRestype, url_target:currentRestype.get("url")+"/"+currentRestype.get("resource_id")});
-                     }*/
                      
                      var currentItem = new ResourceTypeItemView({resource:currentRestype, url_target:currentRestype.get("url")+"/"+currentRestype.get("resource_id")});
 
                      if(currentRestype.get("parent_id") == null){
-                        // console.log("dans IF");
-                        //$(this.el).append('<li id="li'+currentRestype.get("id")+'"><a href="#">'+currentRestype.get("name")+'</a></li>');
+                       
                         $(this.el).append(currentItem.render().el);
-                       //currentItem.setElement(this.el).render();
+                        
 
                      }
                      else{
-                         //console.log('else');
                          if ($(this.el).find('#li'+currentRestype.get("parent_id")).find("ul#mine").length == 0){
                              
                               $(this.el).find('#li'+currentRestype.get("parent_id")).append('<ul id="mine"></ul>');
+                             
+                             // THIS LINE IS FOR BOOTSTRAP
+                             //$(this.el).find('#li'+currentRestype.get("parent_id")).append('<ul id="mine" class="dropdown-menu"></ul>');
                          }
                        
                          $(this.el).find('#li'+currentRestype.get("parent_id")).find("ul").append(currentItem.render().el);
@@ -76,15 +65,14 @@ define([
                           
                           _.each(response, function (currStore,index){
                               
-                              console.log("cc "+JSON.stringify(currStore));
 
                               
                               
-                              console.log("EL: "+$(that.el).find("#Paris").text())
-                              console.log("Country: "+currStore.city+" "+$(that.el).find("#"+currStore.city).text());
                               if($(that.el).find("#"+currStore.city).parent().find("ul").length ==0){
-                                  console.log("HHHHH");
-                                  $(that.el).find("#"+currStore.city).parent().append("<ul></ul>")
+                                 $(that.el).find("#"+currStore.city).parent().append('<ul></ul>')
+                             // THIS LINE IS FOR BOOTSTRAP
+
+                                //  $(that.el).find("#"+currStore.city).parent().append('<ul class="dropdown-menu"></ul>')
                                   
                               } 
                               //HACK
@@ -95,7 +83,6 @@ define([
                           )
                       },
                      error:function (){
-                        console.log("oups");
                      }         
                       
                   })
@@ -107,6 +94,11 @@ define([
                           
                       }
                   });
+                  
+          
+           // WE SET THE CONNECTED USER HERE BECAUSE WE ARE SURE THAT THE VIEW HAS BEEN RENDERED       
+          // document.getElementById('user_connected').innerHTML += current_user.display_name;
+
                   return this;
        
             },   
@@ -114,7 +106,7 @@ define([
                 
                
                 console.log("refresh")
-this.collection = new ResourcesCollection;
+        this.collection = new ResourcesCollection;
         this.stores = new StoresCollection;
         this.lines = new LinesCollection;
         
@@ -122,10 +114,10 @@ this.collection = new ResourcesCollection;
         this.render();
                
             },
-            doSomething: function (){
-            console.log("eee")
+            //doSomething: function (){
+          //  console.log("eee")
             
-            },
+           // },
           
     
     })

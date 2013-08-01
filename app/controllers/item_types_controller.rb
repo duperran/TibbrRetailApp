@@ -16,6 +16,9 @@ class ItemTypesController < ApplicationController
   # GET /item_types/1
   # GET /item_types/1.json
   def show
+    
+        puts " TEST #{APP_CONFIG[Rails.env]['retail']['root']}"
+
    # Get items filtered by type (shoes, jeans...)
     @item_type = ItemType.find(params[:id])
     allitems = @item_type.item

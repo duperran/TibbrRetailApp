@@ -7,8 +7,9 @@ define([
   'views/store',
   'views/home',
   'views/item',
-  'views/explore'
-], function ($, _, Backbone,Vm, StoreView, HomeView, ItemView,ExploreView) {
+  'views/explore',
+  'views/collection'
+], function ($, _, Backbone,Vm, StoreView, HomeView, ItemView,ExploreView,CollectionView) {
 
   var appRouter = Backbone.Router.extend({
     routes: {
@@ -22,6 +23,7 @@ define([
       'items/:category/:index': 'items_category',
       'items/:category/:index/:resourceid': 'items_category',
       'explore/':'explore',
+      'explore/:categroy':'explore',
     },
 
     initialize: function(options) {
@@ -67,6 +69,9 @@ define([
      },
      collections: function(){
       console.log("dans collections: ");
+      var view =  Vm.create(this.appView,'Collections',CollectionView);
+          
+       view.render();
 
      },
      items: function(){
@@ -88,10 +93,10 @@ define([
         
 
      },
-    explore: function() {
+    explore: function(category) {
      
 
-     var view =  Vm.create(this.appView,'Explore',ExploreView,{vent:this.vent});
+     var view =  Vm.create(this.appView,'Explore',ExploreView,{vent:this.vent,category:category});
       view.render();
     
     
