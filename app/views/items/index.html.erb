@@ -1,8 +1,10 @@
 <%=  render 'layouts/stylesheets'%>
 
-<%= render 'layouts/header' %>
-<h1>Listing items</h1>
 
+
+<h1>Listing items</h1>
+<%= render 'layouts/header' %>
+<div class="resources_list">
 <table>
   <tr>
     <th>Reference</th>
@@ -25,5 +27,5 @@
 </table>
 
 <br />
-
 <%= link_to 'New Item', new_item_path %>
+</div>

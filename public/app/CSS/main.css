@@ -143,6 +143,10 @@ header {
     margin-top: 3px;
 }
 
+
+#myCarousel .carousel-inner > .item > img, .carousel-inner > .item > a > img{
+    height: 500px;
+}
 #header_menu{
     z-index: 999999;
 }
@@ -311,6 +315,18 @@ ul#header_ul li a.last {
     padding: 8px;
 }
 
+.resource_gallery, .resource_gallery li{
+    float: left;
+    padding: 0;
+    margin: 6px;
+}
+.resource_gallery div{
+   border: 3px solid #c1d72f;
+padding: 2px;
+background-color: white;
+border-radius: 9px;
+}
+
 /*********************/
 
 
@@ -425,6 +441,27 @@ div#shops_info hgroup {
     float: left;
 }
 
+#store_gallery, #store_gallery li{
+    float: left;
+    padding: 0;
+    margin: 6px;
+}
+#store_gallery div{
+   border: 3px solid #c1d72f;
+padding: 2px;
+background-color: white;
+border-radius: 9px;
+}
+
+#store_panel_desc2 #pics_container{
+    height: 93px;
+background-color: #474747;
+margin-top: 55px;
+margin-left: -14px;
+width: 496px;
+}
+
+
 .store_panel3{
     width: 300px;
     float: left;
@@ -479,6 +516,10 @@ div#shops_info hgroup {
     height: 92%;
     width: 100%;
 }
+
+#store_panel_desc2_header{
+ height: 44px;   
+}
 /**********************/
 
 
@@ -489,13 +530,14 @@ div#item_top{
     border: 0px solid red;
     border: 0px solid red;
     background-color: #f4f4f4;
+    padding-top: 18px;
 
 
 
 }
 
 div#item_center{
-    width:99%;
+    width:100%;
     height: 950px;
     border: 0px solid green;
     overflow: auto;
@@ -596,7 +638,7 @@ div#cover_div{
 }
 
 .resouces_table{
-    height: 400px;
+   /* height: 400px;*/
     float: left;
     width: 645px;
     background-color: #f4f4f4;
@@ -614,6 +656,28 @@ div#cover_div{
 
 .item_selected{
     font-weight: bold
+}
+
+#item_top .item_panel2{
+    margin-left: 75px;
+    float: left;
+    width: 500px;
+    height: 201px
+
+}
+
+
+#item_top .item_panel1{
+    float: left;
+}
+
+#item_panel_desc2 #pics_container{
+    height: 93px;
+background-color: #474747;
+margin-top: 65px;
+margin-left: -14px;
+width: 496px;
+overflow-x: auto;
 }
 
 
@@ -896,12 +960,21 @@ a#more{
     background-color:rgba(0, 0, 0, 0.46);
 }
 
-.tib_store .panel-primary .panel-heading {
+.tib_store .panel-primary .panel-heading, #item_top .panel-primary .panel-heading {
     color: #fff;
     background-color: #474747;
     border-color: #474747;
 }
 
-.tib_store .panel-primary {
+.tib_store .panel-primary, #item_top .panel-primary {
     border-color: #474747;
+}
+
+
+
+/*******GALLERIA******/
+
+.close_fullscreen{
+    
+    margin-top: 10px;
 }

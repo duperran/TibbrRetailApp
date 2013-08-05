@@ -15,8 +15,10 @@ development:
     post_subscription_messages_count: 10
     attachment_id_prefix: "tibbr_attachment"
     format: "json"
+  host: "tibbr.localdomain.com"
   retail:
     root: "http://tibbr.localdomain.com/retailapp/"
+    client_id: 75
   eval_instance: false
   authorise_user: false
 
@@ -36,7 +38,9 @@ production:
     post_subscription_messages_count: 10
     attachment_id_prefix: "tibbr_attachment"
     format: "json"
-  photos:
+  host: "tibbr.localdomain.com"
+  retail:
     root: "http://tibbr.localdomain.com/retailapp/"
+    client_id: 75
   eval_instance: false
   authorise_user: false

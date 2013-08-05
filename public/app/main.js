@@ -17,6 +17,7 @@ requirejs.config({
    // windows : 'js/lib/jquery.windows',
     galleria: 'js/lib/gallery/galleria-1.2.9.min',
     bootstrap: 'js/lib/bootstrap/js/bootstrap',
+    prettyPhoto: 'js/lib/prettyPhoto_3.1.5/js/jquery.prettyPhoto'
     
     
     //templates: '../../templates',
@@ -58,6 +59,10 @@ requirejs.config({
         'jqueryui':{
             depts: ['jquery'],
             exports: 'jqueryui'
+        },
+        prettyPhoto:{
+            depts:['jquery'],
+            exports: 'prettyPhoto'
         }
         
       
@@ -123,8 +128,9 @@ require([
 });*/
         
     }
+    // GLOBAL VARIABLES
     RAILS_RELATIVE_URL_ROOT = $('#rails').data('relative_url_root');
-
+    CLIENT_ID = $('#rails2').data('client_id');
     _loadTIB();
     //This function is called when scripts/helper/util.js is loaded.
     //If util.js calls define(), then this function is not fired until
@@ -146,7 +152,6 @@ require([
 });
 
 function initialize(){
-    console.log("DANS INITIALIZE")
        var myLatlng = new google.maps.LatLng(-34.397, 150.644);
        var myOptions = {
           zoom: 7,center: myLatlng,mapTypeId: google.maps.MapTypeId.ROADMAP

@@ -47,6 +47,51 @@
     <%= f.label :manager %><br />
     <%= f.text_field :manager %>
   </div>
+
+
+  <%= f.fields_for :pictures do |pic| %>
+
+    <p>Picture</p>
+    <div id="item_image1">
+      <div class="field">
+        <%= pic.label "Title" %>
+        <%= pic.text_field :title %>
+
+      </div>
+      <div class="field">
+        <%= pic.label "Image" %>
+        <%= pic.text_field :image %>
+
+      </div>
+
+      <div class="field">
+        <%= pic.label "Thumb" %>
+        <%= pic.text_field :thumb %>
+      </div>
+
+      <div class="field">
+        <%= pic.label "Big" %>
+        <%= pic.text_field :big %>
+      </div>
+
+      <div class="field">
+        <%= pic.label "Description" %>
+        <%= pic.text_field :description %>
+
+      </div>
+
+    </div>
+    </br>
+
+    
+
+
+   
+
+  <% end %>
+
+
+
   <div class="actions">
     <%= f.submit %>
   </div>

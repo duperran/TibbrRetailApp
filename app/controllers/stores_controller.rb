@@ -38,7 +38,9 @@ class StoresController < ApplicationController
   # GET /stores/new.json
   def new
     @store = Store.new
-
+    @store.pictures.build
+    @store.pictures.build
+    @store.pictures.build
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @store }
@@ -108,10 +110,9 @@ class StoresController < ApplicationController
   # DELETE /stores/1.json
   def destroy
     @store = Store.find(params[:id])
-    tib_res = Tibbr::ExternalResource.find_by_resource_key({:resource => {:key => "ID_#{@store.id}", :resource_type => "ad:store"}, :client_id => session[:app_id]})
-    puts "gggggg #{tib_res.inspect}"
-    tib_res.destroy
-    #@store.destroy
+    #tib_res = Tibbr::ExternalResource.find_by_resource_key({:resource => {:key => "ID_#{@store.id}", :resource_type => "ad:store"}, :client_id => session[:app_id]})
+   # tib_res.destroy
+    @store.destroy
     
     
 
@@ -131,13 +132,11 @@ class StoresController < ApplicationController
 
   def follow
     
-    puts "CURRR USER #{@current_user}"
     @store = Store.find(params[:id])
     @store.follow
     
     resultIsFollowing = following?
     
-    puts "KKKKK #{resultIsFollowing}"
   # puts "BEFORE FOLLOW #{@current_user}"
    # users = Array.new
    # users << @current_user.login

@@ -1,8 +1,9 @@
 class Item < ActiveRecord::Base
-  attr_accessible :name, :reference, :item_type_id, :tibbr_key, :tibbr_id
+  attr_accessible :name, :reference, :item_type_id, :tibbr_key, :tibbr_id, :pictures_attributes
   has_many :pictures
   has_one :item_type
- # accept_nested_attributes_for :pictures, :allow_destroy => true
+  accepts_nested_attributes_for :pictures, :allow_destroy => true
+
   
   def tibbr_resource
     tib_res = nil

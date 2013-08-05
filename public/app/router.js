@@ -31,7 +31,6 @@ define([
     this.vent = options.vent;
     },
     home : function(){
-        console.log("HOME")
        var view =  Vm.create(this.appView,'Home',HomeView);
        $(document).ready(function() {
     
@@ -47,7 +46,6 @@ define([
        view.render();   
     },
     stores : function (index){
-       console.log("dans home: "+index);
       
        
        
@@ -56,11 +54,9 @@ define([
         //}, 'slow'); 
     },
     stores_country :function(){
-     console.log("dans stores_country: ");
 
      },
      stores_country_city: function(country,city,index){
-      console.log("dans stores_country_city: "+index);
      // $('body').find('section#1').css("display","none");
        var view =  Vm.create(this.appView,'Stores',StoreView,{index:index});
           
@@ -68,22 +64,18 @@ define([
 
      },
      collections: function(){
-      console.log("dans collections: ");
       var view =  Vm.create(this.appView,'Collections',CollectionView);
           
        view.render();
 
      },
      items: function(){
-      console.log("dans items: ");
       
 
 
      },       
      items_category: function(category,index,resourceid){
-     console.log("category "+category+" index "+index);
 
-        console.log("dans items_category: ");
         $('body').find('section#1').css("display","none");
       var view =  Vm.create(this.appView,'Item',ItemView,{type:category,index:index,resourceid:resourceid});
       view.render();

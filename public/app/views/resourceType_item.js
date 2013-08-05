@@ -31,7 +31,6 @@ define([
         } ,
                 
          showOrigin: function(evt){
-            console.log($(evt.target).parent().first().attr("id"));
          },
         
         

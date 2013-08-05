@@ -3,24 +3,29 @@ define([
     'underscore',
     'backbone',
     'collections/stores',
-    'text!templates/store.html'
-], function($, _, Backbone, StoresCollection, StoresTemplate) {
+    'text!templates/store.html',
+    'prettyPhoto',
+    'collections/images',
+
+], function($, _, Backbone, StoresCollection, StoresTemplate, PrettyPhoto, ImagesCollection) {
 
     var StoreView = Backbone.View.extend({
         el: '.main-content',
         initialize: function(options) {
             var that = this;
             this.stores = new StoresCollection;
-            this.stores.searchTerm = "/" + options.index;
+            this.store_id = options.index;
+            this.stores.searchTerm = "/" + this.store_id;
             this.stores.bind("change", this.render);
             this.gadget_url = "http://"+RAILS_RELATIVE_URL_ROOT+"/a/gadgets/resource_messages.html";
-            
+            this.storesPics = new ImagesCollection;
             this.stores.fetch({
                 success: function(collection, response) {
 
-                    console.log("resp:" + JSON.stringify(response));
-                    that.gadget_url += '?client_id=75&type=ad:store&key=' + response.tibbr_key
+                   // console.log("resp:" + JSON.stringify(response));
+                    that.gadget_url += '?client_id='+CLIENT_ID+'&type=ad:store&key=' + response.tibbr_key
                     that.render();
+                    that.setPics();
                 },
                 update: true
             })
@@ -34,12 +39,13 @@ define([
             // to avoid first render before collection get initialized
             if (this.stores.models.length > 0) {
                 var tmpl = _.template(StoresTemplate)
-                console.log("stores" + JSON.stringify(this.stores))
+                //console.log("stores" + JSON.stringify(this.stores))
                 $(this.el).html(tmpl({gadget_url: this.gadget_url}))
                 $(this.el).find('#store_panel_desc1').append('<h3>' + this.stores.models[0].get("name") + '</h3>')
                 $(this.el).find('#store_panel_desc1').append('<h4>' + this.stores.models[0].get("street_number") + " " + this.stores.models[0].get("street") + '</h4>')
                 $(this.el).find('#store_panel_desc1').append('<h4>' + this.stores.models[0].get("city") + "," + this.stores.models[0].get("country") + '</h4>')
 
+                $(this.el).find('#store_panel_desc2 h5').text(this.stores.models[0].get("manager"))
 
                 TIB.parentApp.setFrameHeight($("#main-content").outerHeight(true));
             }
@@ -52,8 +58,8 @@ define([
             //  });
 
 
-
-
+     
+           
 
             return this;
         },
@@ -76,12 +82,34 @@ define([
 
 
         },
+        setPics:function(){
+           this.storesPics.searchTerm = "?store_id=" + this.store_id;
+           this.storesPics.fetch({
+               success:function(collection, response) {
+                   
+                  _.each(response, function(currentStore,index){
+                       
+                          $('#store_gallery').append('<li><div><a href="'+currentStore.big+'" rel="prettyPhoto[gallery2]"><img src="'+currentStore.thumb+'" width="60" height="60" alt="" /></a></div></li>')
+
+                       
+                   }
+               )
+                $("a[rel^='prettyPhoto']").prettyPhoto({social_tools:''});
+
+               }
+               
+           })
+           
+           
+           
+        
+        
+        },        
+        
         initMap: function() {
             // Call this function when the page has been loaded 
             map = new google.maps.Map(document.getElementById("map"));
 
-console.log("long "+this.stores.models[0].get("longitude"))
-console.log("lat "+this.stores.models[0].get("latitude"))
 
             var long = this.stores.models[0].get("longitude")
 

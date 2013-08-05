@@ -1,8 +1,9 @@
 <%=  render 'layouts/stylesheets'%>
 
-<%= render 'layouts/header' %>
-<h1>Listing pictures</h1>
 
+<h1>Listing pictures</h1>
+<%= render 'layouts/header' %>
+<div class="resources_list"> 
 <table>
   <tr>
     <th>Image</th>
@@ -12,7 +13,7 @@
     <th>Description</th>
     <th>Link</th>
     <th>Item ID</th>
-    <th></th>
+    <th>Store ID</th>
     <th></th>
     <th></th>
   </tr>
@@ -26,6 +27,7 @@
     <td><%= picture.description %></td>
     <td><%= picture.link %></td>
     <td><%= picture.item_id %></td>
+    <td><%= picture.store_id %></td>
     <td><%= link_to 'Show', picture %></td>
     <td><%= link_to 'Edit', edit_picture_path(picture) %></td>
     <td><%= link_to 'Destroy', picture, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -34,5 +36,5 @@
 </table>
 
 <br />
-
 <%= link_to 'New Picture', new_picture_path %>
+</div>

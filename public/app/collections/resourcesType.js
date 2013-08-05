@@ -23,6 +23,8 @@ define([
                   var sample14 = new ResourceType({name:"Bags",id:"3_12",url:"items/bags",parent_id:"3",resource_id:"4"});
                   var sample15 = new ResourceType({name:"Accessories",id:"3_13",url:"items/acessories",parent_id:"3",resource_id:"5"});
                   var sample16 = new ResourceType({name:"Create Store",id:"5",url:"stores/new",parent_id:null,resource_id:""});
+                  var sample10 = new ResourceType({name:"New York",id:"1_10",url:"stores/usa/nyc",parent_id:"1_2",resource_id:""});
+
 
                   
 

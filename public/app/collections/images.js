@@ -3,7 +3,7 @@ define([
   'backbone'
 ], function($, Backbone) {
  var Pictures = Backbone.Collection.extend({
-               url: function(){return '/retailapp/itempictures'+this.searchTerm +'&format=json'},
+               url: function(){return '/retailapp/resourcepictures'+this.searchTerm +'&format=json'},
                initialize: function(models,options){
              
                } 

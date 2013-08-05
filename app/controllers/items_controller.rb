@@ -55,7 +55,11 @@ class ItemsController < ApplicationController
   # GET /items/new.json
   def new
     @item = Item.new
-    @picture = Picture.new
+    @item.pictures.build
+    @item.pictures.build
+    @item.pictures.build
+
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @item }
@@ -116,7 +120,6 @@ class ItemsController < ApplicationController
   # PUT /items/1.json
   def update
     @item = Item.find(params[:id])
-
     respond_to do |format|
       if @item.update_attributes(params[:item])
         format.html { redirect_to @item, notice: 'Item was successfully updated.' }

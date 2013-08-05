@@ -1,6 +1,8 @@
 class Store < ActiveRecord::Base
-  attr_accessible :city, :country, :latitude, :longitude, :manager, :name, :street, :street_number, :zipcode, :tibbr_id, :tibbr_key
-  
+  attr_accessible :city, :country, :latitude, :longitude, :manager, :name, :street, :street_number, :zipcode, :tibbr_id, :tibbr_key, :pictures_attributes
+  has_many :pictures
+  accepts_nested_attributes_for :pictures, :allow_destroy => true
+
   
   
   def tibbr_resource

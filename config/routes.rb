@@ -22,6 +22,8 @@ TibbrRetailsApp::Application.routes.draw do
   
     match '/itemType', :to => 'items#get_items_by_type'
     match 'itempictures', :to=> 'pictures#getitempicture'
+    match 'resourcepictures',:to => 'pictures#getresourcepicture'
+    match 'storepictures', :to=> 'pictures#getstorepicture'
     match '/exploreResource', :to => 'explore#get_ressources'
     match  '/searchByName', :to =>  'explore#get_ressources_by_name'
     

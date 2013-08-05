@@ -1,9 +1,12 @@
 module ApplicationHelper
   
    def app_url
-     @app_url = "tibbr.localdomain.com"
+     @app_url = APP_CONFIG[Rails.env]['host']
    end
   
+   def client_id
+     @client_id = APP_CONFIG[Rails.env]['retail']['client_id']
+   end
   
   def title(page_title)
     content_for :title, page_title.to_s

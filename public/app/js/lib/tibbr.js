@@ -8,7 +8,7 @@ current_user = null;
 // when calling Home, Items ...
 RAILS_RELATIVE_URL_ROOT = document.getElementById('rails').getAttribute('data-relative_url_root');
 
-console.log("Enter tibbr.js"+RAILS_RELATIVE_URL_ROOT);
+//console.log("Enter tibbr.js"+RAILS_RELATIVE_URL_ROOT);
 TIB.init({
             host: RAILS_RELATIVE_URL_ROOT+"/tibbr",
             tunnelUrl: "http://"+RAILS_RELATIVE_URL_ROOT+"/app/js/a/gadgets/pagebus/js/full/tunnel.html",
@@ -16,10 +16,6 @@ TIB.init({
  });
 //console.log("avant oninit "+TIB.onInit().text());
 TIB.onInit(function(){
-     console.log('enter onInit' );
-     console.log('out onInit');
-     console.log(TIB.parentApp);
-     //setAdjustHeight();
 
 });
 
@@ -29,12 +25,10 @@ function setAdjustHeight() {
 
                                           //  console.log("3 "+TIB.parentTibbr)
 
-                           console.log("RESIZe 0")
                           $.each(["show"], 
 
                          // $.each(["append","prepend","html","hide","remove","show", "addClass", "removeClass"], 
                               function(i,v){
-                                 console.log("RESIZe 1")
 
                                 var ext_f = $.fn[v];
                                 $.fn[v] = function(){
@@ -57,7 +51,6 @@ function setAdjustHeight() {
 
 
 TIB.onLogin(function(){
-     console.log('enter onLogin');
      current_user = TIB.currentUser;
  });
  

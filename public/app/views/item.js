@@ -11,10 +11,8 @@ define([
     var ItemView = Backbone.View.extend({
         el: ".main-content",
         initialize: function(options) {
-            console.log(options);
 
             this.collection = new ItemsCollection(null, {type: options.type});
-            console.log(options.index);
             this.collection.searchTerm = options.index;
             this.selectedItem = options.resourceid
 
@@ -28,7 +26,7 @@ define([
             this.pictures = new ImagesCollection;
             this.pictures.bind("change", this.displayCoverFlow);
 
-            this.resource_gadget_base = "http://"+RAILS_RELATIVE_URL_ROOT+"/a/gadgets/resource_messages.html"
+            this.resource_gadget_base = "http://" + RAILS_RELATIVE_URL_ROOT + "/a/gadgets/resource_messages.html"
             var that = this;
             this.collection.fetch({
                 success: function(collection, response) {
@@ -50,12 +48,12 @@ define([
                         });
 
                         // Put selected item in bold
-                        $(that.el).find("li#"+selectItem[0].id).addClass("item_selected");
+                        $(that.el).find("li#" + selectItem[0].id).addClass("item_selected");
                         that.pictures.searchTerm = "?item_id=" + selectItem[0].id;
-                        that.url_gagdet_item = that.resource_gadget_base + '?client_id=75&type=ad:item&key=' + selectItem[0].tibbr_key
+                        that.url_gagdet_item = that.resource_gadget_base + '?client_id='+CLIENT_ID+'&type=ad:item&key=' + selectItem[0].tibbr_key
 
                         $(that.el).find("#tibbr_wall").attr("src", that.url_gagdet_item)
-                        
+
                         that.updateCoverFlow();
 
                     }
@@ -71,7 +69,6 @@ define([
             //console.log("ALORS: "+this.collection);
         },
         parse: function(response) {
-            console.log("Method parse");
             return response.results;
         },
         events: {
@@ -88,7 +85,7 @@ define([
             if (this.collection.length > 0) {
 
                 _.each(this.collection.models[0].get("item"), function(curentItem, index) {
-   $('body').find(".res_table").find("ul").append('<li class="item_row" id="' + curentItem.id + '"><div class="item-resource-details"><div class="res_left"><span>' + curentItem.reference +
+                    $('body').find(".res_table").find("ul").append('<li class="item_row" id="' + curentItem.id + '"><div class="item-resource-details"><div class="res_left"><span>' + curentItem.reference +
                             '</span></div><div class="res_middle"><span>' + curentItem.name + '</span></div><div class="res_right"><span>' +
                             that.collection.models[0].get("resource").name + '</span></div></div></li>')
 
@@ -96,56 +93,41 @@ define([
                 })
 
             }
-            
 
-            //$("#tib_container_item").delay(100).animate({height: "100%"}, 600);
-           // $("#tibbr_wall").delay(100).fadeIn(1000);
-console.log("FFFFFFv"+$("#container").height());
-              TIB.parentApp.setFrameHeight($("#main-content").outerHeight(true));
+
+
+            TIB.parentApp.setFrameHeight($("#main-content").outerHeight(true));
 
             return this;
         },
         updateCoverFlow: function() {
-
-            //var pictures = new ImagesCollection;
-            //pictures.searchTerm = "?item_id="+this.collection.models[0].get("id");
+   
             var that = this;
             this.pictures.fetch({
                 success: function(collection, response) {
-                    console.log("IMAGE RECEIVED:" + response);
+//                    console.log("IMAGE RECEIVED:" + response);
                     that.displayCoverFlow(response);
                 },
             })
         },
         displayCoverFlow: function(pics) {
-            console.log("laCOVERFLOW: " + JSON.stringify(this.collection))
-            this.coverFlow = new CoverFlowView(null, {pictures: pics});
+            
+            $('#item_gallery').empty();
+            _.each(pics, function(currentPic, index) {
+
+                $('#item_gallery').append('<li><div><a href="' + currentPic.big + '" rel="prettyPhoto[gallery2]"><img src="' + currentPic.thumb + '" width="60" height="60" alt="" /></a></div></li>')
+
+
+            }
+            )
+            $("a[rel^='prettyPhoto']").prettyPhoto({social_tools: ''});
+
+
+            // OLD COVERFLOW GALLERIA
+            // this.coverFlow = new CoverFlowView(null, {pictures: pics});
             //  this.coverFlow.pics = pics;
-            this.coverFlow.setElement(this.$('#cover_div')).render();
-        },
-        itemSelectedOLD: function() {
-            console.log("OOOOOOO " + $("#select_items option:selected").text())
-            console.log("Coll " + JSON.stringify(this.collection.models[0].get("item")));
-
-
-
-            //  var selectItem = this.collection.models[0].get("item").models.find(function(item){
-            //      console.log("=========================DBA: "+JSON.stringify(item));
-            //      console.log("truc selectionne:"+$("#select_items option:selected").text());
-
-            //      return item.get('reference') === $("#select_items option:selected").text();
-            // });
-            var selectItem = $.grep(this.collection.models[0].get("item"), function(e) {
-
-                return e.reference == $("#select_items option:selected").text();
-            });
-            console.log("sqsq " + JSON.stringify(selectItem));
-            this.pictures.searchTerm = "?item_id=" + selectItem[0].id;
-            this.updateCoverFlow();
-
-            //this.coverFlow = new CoverFlowView(null,{pictures:selectItem.get("pictures")});
-            //this.coverFlow.setElement(this.$('#cover_div')).render();
-
+            // this.coverFlow.setElement(this.$('#cover_div')).render();
+            //END OLD COVERFLOW
         },
         resizeTibbrFrameUp: function() {
 
@@ -158,11 +140,9 @@ console.log("FFFFFFv"+$("#container").height());
 
         },
         itemSelected: function(e) {
-            console.log("CLICK ELEM " + e.target)
 
             //Remove previous selection class 
             $(this.el).find(".item_selected").removeClass("item_selected");
-            console.log($(e.target).parent().parent().parent()[0].id)
 
             var selectItem = $.grep(this.collection.models[0].get("item"), function(elem) {
 
@@ -172,15 +152,14 @@ console.log("FFFFFFv"+$("#container").height());
             // Put selected item in bold
             $($(e.target).parent().parent().parent()[0]).addClass("item_selected");
             this.pictures.searchTerm = "?item_id=" + selectItem[0].id;
-            this.url_gagdet_item = this.resource_gadget_base + '?client_id=75&type=ad:item&key=' + selectItem[0].tibbr_key
+            this.url_gagdet_item = this.resource_gadget_base + '?client_id='+CLIENT_ID+'&type=ad:item&key=' + selectItem[0].tibbr_key
 
             $(this.el).find("#tibbr_wall").attr("src", this.url_gagdet_item)
             this.updateCoverFlow();
-             
-           
 
-        }
 
+
+        },
     })
 
     return ItemView

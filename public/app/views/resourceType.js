@@ -24,9 +24,9 @@ define([
         //console.log("ssqsffgg "+this.collection.size())
         
     },
+    
                   
     render: function(){
-        console.log("HOP")
                  var that = this;
                  
                  //console.log("Dans Render resourceTypeList view "+ $(this.el).html());
@@ -103,9 +103,7 @@ define([
        
             },   
             refresh:function (){
-                
-               
-                console.log("refresh")
+               console.log("REFRESH") 
         this.collection = new ResourcesCollection;
         this.stores = new StoresCollection;
         this.lines = new LinesCollection;

@@ -68,6 +68,9 @@ define([
                         $(that.el).find("#test_truc").append('<li id="res_' + curentItem.id + '">'
                                 + '<div class="explore-resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="app/images/default_pic.jpeg"></div><h5>' + curentItem.name + '</h5></div>'
                                 + '<div class="follow-resource"><a class="'+classButtonFollow+'" type="item" resourceid=' + curentItem.id + '><span>'+textButtonFollow +'</span></a></div></div>')
+                    
+                       that.load_pictures(curentItem,"item_id");
+                    
                     })
 
                     // Display stores
@@ -93,10 +96,10 @@ define([
                         }
 
                         $(that.el).find("#test_truc").append('<li id="res_' + curentItem.id + '">'
-                                + '<div class="explore-resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="app/images/default_pic.jpeg"></div><h5>' + curentItem.name + '</h5></div>'
+                                + '<div class="explore-resource-details"><div class="resource-info"><div class="item_pic"  ><img class="pic" src="app/images/default_pic.jpeg"></div><h5>' + curentItem.name + '</h5></div>'
                                 + '<div class="follow-resource"><a class="' + classButtonFollow + '" type="store" resourceid=' + curentItem.id + '><span>' + textButtonFollow + '</span></a></div></div>')
 
-
+                        that.load_pictures(curentItem,"store_id");
                     })
 
 
@@ -105,11 +108,11 @@ define([
 
 
 
-                    _.each(resources.models[0].get("items"), function(curentItem, index) {
+                    //_.each(resources.models[0].get("items"), function(curentItem, index) {
 
-                        that.load_pictures(curentItem);
+                   //     that.load_pictures(curentItem);
 
-                    })
+                    //})
 
                 }
             });
@@ -123,8 +126,16 @@ define([
             'click .unfollow_resource_button': 'unfollow',
             'focus .search_box_input': 'getAutocomplete',
             'click .search_button' : 'searchResources',
+            'mouseover .pic': 'modal_pic',
+            'mouseout .pic' : 'close_modal_pic',
 
         },
+        modal_pic: function (){
+            $('#myModal_pics').tooltip("show");
+        },
+        close_modal_view: function(){
+           $('#myModal_pics').tooltip("hide");
+        },        
         //NOT USED
         checkScroll: function() {
             var triggerPoint = 100; // 100px from the bottom
@@ -161,10 +172,11 @@ define([
             this.loadResults();
 
         },
-        load_pictures: function(currImage) {
+        //WE USE THE SAME METHOD FOR DISPLAYING THE PIC OF STORE AND ITEM, SO I NEED TO PASS THE SEARCH PARAMETER        
+        load_pictures: function(currImage,search_param){
             var that = this;
             pic = new ImagesCollection;
-            pic.searchTerm = "?item_id=" + currImage.id + "&first_pic=true";
+            pic.searchTerm = "?"+search_param+"="+currImage.id+"&first_pic=true";
 
             pic.fetch({
                 success: function(result) {
@@ -192,7 +204,6 @@ define([
                     },
                     success: function(response) {
                         that.manageFollowCommand(response);
-                        console.log("TRIGGER customEvent")
                         //tirgger event to update stores list in menu and reflect the change 
                         that.vent.trigger("test:customEvent")
 

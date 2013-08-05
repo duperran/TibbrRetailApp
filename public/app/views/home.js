@@ -7,7 +7,7 @@ define([
     var HomeView = Backbone.View.extend({
         el: '.main-content',
         initialize: function() {
-         console.log("RAILS ENV"+RAILS_RELATIVE_URL_ROOT)
+        // console.log("RAILS ENV"+RAILS_RELATIVE_URL_ROOT)
 
 
         },
@@ -16,7 +16,8 @@ define([
             $(this.el).html(homeTemplate);
            
                TIB.parentApp.setFrameHeight($("#container").height());
-
+ // WE SET THE CONNECTED USER HERE BECAUSE WE ARE SURE THAT THE VIEW HAS BEEN RENDERED       
+  // document.getElementById('user_connected').innerHTML += current_user.display_name;
             return this;
         },
         
