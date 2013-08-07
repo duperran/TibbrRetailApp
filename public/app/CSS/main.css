@@ -911,6 +911,7 @@ a#more{
 
 }
 
+
 .search_button{
     background: url(../images/lookup.jpeg);
     border: 0 none;
@@ -924,7 +925,11 @@ a#more{
     margin-top: -26px;
 
 }
-
+@-moz-document url-prefix() {
+    .search_button {
+       margin-top: 0px;
+    }
+}
 .search_box_input{
     width: 230px;
 }

@@ -333,11 +333,16 @@ define([
 
                         }
                         
-                        
+                         var typeOfResource = ""
+                        //Check if the result is a store or an item to handle the follow unfollow which check the type of resource
+                        if ( typeof curentItem.get("item_type_id") == 'undefined'){
+                            typeOfResource = 'store'
+                        }
+                     
                         
                         $(that.el).find("#test_truc").append('<li id="res_' + curentItem.get('id') + '">'
                                 + '<div class="explore-resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="app/images/default_pic.jpeg"></div><h5>' + curentItem.get('name') + '</h5></div>'
-                                + '<div class="follow-resource"><a class="'+classButtonFollow+'" type="item" resourceid=' + curentItem.get('id') + '><span>'+textButtonFollow +'</span></a></div></div>')
+                                + '<div class="follow-resource"><a class="'+classButtonFollow+'" type="'+typeOfResource+'" resourceid=' + curentItem.get('id') + '><span>'+textButtonFollow +'</span></a></div></div>')
                     })
                     
                     
@@ -373,11 +378,16 @@ define([
 
                         }
                         
-                        
+                        var typeOfResource = ""
+                        //Check if the result is a store or an item to handle the follow unfollow which check the type of resource
+                        if ( typeof curentItem.get("item_type_id") == 'undefined'){
+                            typeOfResource = 'store'
+                        }
+                     
                         
                         $(that.el).find("#test_truc").append('<li id="res_' + curentItem.get('id') + '">'
                                 + '<div class="explore-resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="app/images/default_pic.jpeg"></div><h5>' + curentItem.get('name') + '</h5></div>'
-                                + '<div class="follow-resource"><a class="'+classButtonFollow+'" type="item" resourceid=' + curentItem.get('id') + '><span>'+textButtonFollow +'</span></a></div></div>')
+                                + '<div class="follow-resource"><a class="'+classButtonFollow+'" type="'+typeOfResource+'" resourceid=' + curentItem.get('id') + '><span>'+textButtonFollow +'</span></a></div></div>')
                     })
  
          }
