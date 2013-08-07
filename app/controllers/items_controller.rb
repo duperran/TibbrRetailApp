@@ -20,14 +20,11 @@ class ItemsController < ApplicationController
     if(params[:itemType] == '')
       
         @item = Item.all
-        puts "la"
     else
        @item = Item.find_all_by_item_type_id(params[:itemType])
-       puts "ici"
       
     end   
     
-    puts "Count: #{@item.count}"
     
     respond_to do |format|
       format.json { 
@@ -102,9 +99,7 @@ class ItemsController < ApplicationController
         @item.tibbr_id = tib_res.id
         @item.tibbr_key = "Item_#{@item.id}_#{@item.reference}"
         
-        puts "1 #{tib_res.id}"
-        puts "2 #{@item.tibbr_key}"
-        puts "3 #{@item.tibbr_key}"
+       
      
         @item.save
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
@@ -145,7 +140,6 @@ class ItemsController < ApplicationController
   
   
   def followers
-        puts 'followers of items'
 
     @item = Store.find(params[:id])
     followers = @item.followers
@@ -154,14 +148,11 @@ class ItemsController < ApplicationController
 
   def follow
     
-    puts "CURRR USER #{@current_user}"
     @item = Item.find(params[:id])
-    puts "LAAAAA #{@item.id}"
     @item.follow
     
     resultIsFollowing = following?
     
-    puts "KKKKK #{resultIsFollowing}"
   # puts "BEFORE FOLLOW #{@current_user}"
    # users = Array.new
    # users << @current_user.login

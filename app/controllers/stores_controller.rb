@@ -16,7 +16,6 @@ class StoresController < ApplicationController
       end
     end
     
-    puts "STORE FOLLOWED: #{@storesFollowed.count}"
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @storesFollowed }
@@ -62,7 +61,6 @@ class StoresController < ApplicationController
     respond_to do |format|
       if @store.save
         # Create the tibbr resource for the store
-        puts "rrrrrrr #{@store.id} user: #{@current_user} app_id #{session[:app_id]} "
         action_typ =  "og:comment"
         publish_req = {:message=>{:rich_content=>"New Store !"}, :action_type=>action_typ, :client_id=> session[:app_id], :resource=>{:app_id => session[:app_id], :key => "ID_#{@store.id}", :title => "#{@store.name}_#{@store.name}",:description => "test", :scope => "public", :type => "ad:store", :owners => [@current_user.id], :url => "#{APP_CONFIG[Rails.env]['retail']['root']}#stores/#{@store.country}/#{@store.city}/#{@store.id}", :action_links => [{:url => "#{APP_CONFIG[Rails.env]['retail']['root']}#stores/#{@store.country}/#{@store.city}/#{@store.id}", :label => "View", :display_target => "app"}] }}.to_json;
 
@@ -124,7 +122,6 @@ class StoresController < ApplicationController
   
   
   def followers
-    puts 'followers of stores'
     @store = Store.find(params[:id])
     followers = @store.followers
     followers

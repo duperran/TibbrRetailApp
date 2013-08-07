@@ -25,7 +25,6 @@ class ExploreController < ApplicationController
     
     @results = stores + items;  
     
-    puts "dddd #{@results}"
     
     respond_to do |format|
      format.json { 
@@ -57,7 +56,6 @@ class ExploreController < ApplicationController
       
       @items = items;
       @stores = stores; 
-      puts "la"
       
     # Retrieve strores  
     elsif(params[:itemType] == '4')
@@ -68,7 +66,6 @@ class ExploreController < ApplicationController
         a[:is_following] = isfollowingstore? a
       end
       @stores = stores; 
-      puts "edddzdz #{@stores}"
       @items=[];
    
     #Retrieve items
@@ -83,7 +80,6 @@ class ExploreController < ApplicationController
       
       @items=items;
       @stores = [];
-      puts "ici"
     end
     
     
