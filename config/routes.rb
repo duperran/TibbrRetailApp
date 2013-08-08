@@ -3,10 +3,13 @@ TibbrRetailsApp::Application.routes.draw do
   
 
 
-  scope "/retailapp" do
-  resources :item_types
+  scope ENV['RAILS_RELATIVE_URL_ROOT']  do
+  
+    
+    resources :item_types
 
-
+    
+    
   resources :pictures
 
 
@@ -32,7 +35,13 @@ TibbrRetailsApp::Application.routes.draw do
     
     match '/followItem', :to => 'items#follow'
     match '/unfollowItem', :to => 'items#unfollow'
+    
+    #because pure ruby app and backbonejs live ib the same app, we need to specify different path to javascripts, stylesheets ... for the
+    #different apps
+    match "assetsruby(/*path)" => redirect {|params| "/assetsruby/#{params[:path]}"}
+
     root :to => 'home#home'
+    
 
   end
 

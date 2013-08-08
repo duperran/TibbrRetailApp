@@ -64,5 +64,10 @@ module TibbrRetailsApp
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    #Specific directive for pure ruby libs, does not impact backbonejs. We do this to have a custom root path for assets in the case we need to 
+    #integrate it with tibbr, that prevent to have /app or /assets as which can be already used 
+    config.assets.prefix = "/assetsruby"
+    config.action_controller.relative_url_root = '/retailapp'
+    #config.root_path = '/retailapp'
   end
 end
