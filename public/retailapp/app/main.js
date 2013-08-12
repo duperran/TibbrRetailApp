@@ -129,8 +129,8 @@ require([
         
     }
     // GLOBAL VARIABLES
-    RAILS_RELATIVE_URL_ROOT = $('#rails').data('relative_url_root');
-    CLIENT_ID = $('#rails2').data('client_id');
+    TIBBR_SITE = $('#tibbr_site').data('tibbr_site');
+    CLIENT_ID = $('#client_id').data('client_id');
     _loadTIB();
     //This function is called when scripts/helper/util.js is loaded.
     //If util.js calls define(), then this function is not fired until

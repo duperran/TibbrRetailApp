@@ -25,16 +25,14 @@ class ApplicationController < ActionController::Base
 
   def set_session
 
-    pp "SSSSSSS"
     if  (session[:access_token] != params[:access_token]) && !params[:access_token].nil?
       # must be a new user logge din...
       session.except!([:app_id, :user_id, :access_token, :tibbr_server_url, :ssl])
     end
 
     session[:app_id] = params[:client_key] if params[:client_key]
-   
     if (current_user)
-    
+
     session[:user_id] = current_user.id
     else
       render "public/open_retail_app.html"
@@ -46,6 +44,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user if @current_user.present?
+
     Tibbr::User.access_token = !session[:access_token].nil? ? session[:access_token] : params[:access_token]
     #Tibbr::User.access_token = params[:access_token]
     @current_user = Tibbr::User.find_by_access_token

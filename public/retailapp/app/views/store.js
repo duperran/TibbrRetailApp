@@ -17,7 +17,7 @@ define([
             this.store_id = options.index;
             this.stores.searchTerm = "/" + this.store_id;
             this.stores.bind("change", this.render);
-            this.gadget_url = "http://"+RAILS_RELATIVE_URL_ROOT+"/a/gadgets/resource_messages.html";
+            this.gadget_url = TIBBR_SITE+"/a/gadgets/resource_messages.html";
             this.storesPics = new ImagesCollection;
             this.stores.fetch({
                 success: function(collection, response) {

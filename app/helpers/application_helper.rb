@@ -1,7 +1,12 @@
 module ApplicationHelper
   
-   def app_url
-     @app_url = APP_CONFIG[Rails.env]['host']
+  def config_tibbr_site_root
+    
+     @config_tibbr_site= APP_CONFIG[Rails.env]['api']['site_root']
+  end 
+  
+  def config_tibbr_host
+     @config_tibbr_host= APP_CONFIG[Rails.env]['host']
    end
   
    def client_id

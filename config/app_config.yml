@@ -6,6 +6,7 @@ development:
   vote_notifications: false
   profile_sync_interval: "24.hours"
   api:
+    site_root: "http://tibbr.localdomain.com"
     site: "http://tibbr.localdomain.com/tibbr"
     per_page: 100
     client_key: "tibbr_retail32994309843dskdskjshkhkfs987w98whjdskjhkjdsh"
@@ -29,6 +30,7 @@ production:
   vote_notifications: false
   profile_sync_interval: "24.hours"
   api:
+    site_root: "http://tibbr.localdomain.com"
     site: "http://tibbr.localdomain.com/tibbr"
     per_page: 100
     client_key: "tibbr_retail32994309843dskdskjshkhkfs987w98whjdskjhkjdsh"

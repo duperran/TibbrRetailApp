@@ -26,7 +26,7 @@ define([
             this.pictures = new ImagesCollection;
             this.pictures.bind("change", this.displayCoverFlow);
 
-            this.resource_gadget_base = "http://" + RAILS_RELATIVE_URL_ROOT + "/a/gadgets/resource_messages.html"
+            this.resource_gadget_base =TIBBR_SITE+ "/a/gadgets/resource_messages.html"
             var that = this;
             this.collection.fetch({
                 success: function(collection, response) {

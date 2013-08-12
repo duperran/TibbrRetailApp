@@ -341,8 +341,18 @@ define([
                      
                         
                         $(that.el).find("#test_truc").append('<li id="res_' + curentItem.get('id') + '">'
-                                + '<div class="explore-resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="app/images/default_pic.jpeg"></div><h5>' + curentItem.get('name') + '</h5></div>'
+                                + '<div class="explore-resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="/retailapp/app/images/default_pic.jpeg"></div><h5>' + curentItem.get('name') + '</h5></div>'
                                 + '<div class="follow-resource"><a class="'+classButtonFollow+'" type="'+typeOfResource+'" resourceid=' + curentItem.get('id') + '><span>'+textButtonFollow +'</span></a></div></div>')
+                    
+                         if(typeOfResource == 'store'){
+                              that.load_pictures(curentItem,"store_id");
+
+                         }
+                         else{
+                              that.load_pictures(curentItem,"item_id");
+
+                         }
+                    
                     })
                     
                     
@@ -359,6 +369,7 @@ define([
                      });
              $(this.el).find("#test_truc").empty();
              $(this.el).find('#more_ul').hide();
+             console.log("ffff "+JSON.stringify(this.exploreCollection))
              this.exploreCollection = new ItemsCollection(this.autoExploreCollection.models[0].get("results"));
              
              var that = this;
@@ -386,9 +397,19 @@ define([
                      
                         
                         $(that.el).find("#test_truc").append('<li id="res_' + curentItem.get('id') + '">'
-                                + '<div class="explore-resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="app/images/default_pic.jpeg"></div><h5>' + curentItem.get('name') + '</h5></div>'
+                                + '<div class="explore-resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="/retailapp/app/images/default_pic.jpeg"></div><h5>' + curentItem.get('name') + '</h5></div>'
                                 + '<div class="follow-resource"><a class="'+classButtonFollow+'" type="'+typeOfResource+'" resourceid=' + curentItem.get('id') + '><span>'+textButtonFollow +'</span></a></div></div>')
-                    })
+                  
+                      if(typeOfResource == 'store'){
+                              that.load_pictures(curentItem,"store_id");
+
+                         }
+                         else{
+                              that.load_pictures(curentItem,"item_id");
+
+                         }
+             
+                })
  
          }
                 

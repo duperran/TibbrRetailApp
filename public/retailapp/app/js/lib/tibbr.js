@@ -6,17 +6,16 @@ current_user = null;
 //CANNOT USE THE VARIBALE DEFINED IN BACKBONE JS BECAUSE THE TIBBR.js SCRIPT IS LOADED BEFORE
 //Indeed, the script needs to be inizialize before the main Backbonejsto be able to resize TIB.parentApp container 
 // when calling Home, Items ...
-RAILS_RELATIVE_URL_ROOT = document.getElementById('rails').getAttribute('data-relative_url_root');
+TIBBR_HOST = document.getElementById('tibbr_host').getAttribute('data-tibbr_host');
+TIBBR_SITE = document.getElementById('tibbr_site').getAttribute('data-tibbr_site');
 
-//console.log("Enter tibbr.js"+RAILS_RELATIVE_URL_ROOT);
 TIB.init({
-            host: RAILS_RELATIVE_URL_ROOT+"/tibbr",
-            tunnelUrl: "http://"+RAILS_RELATIVE_URL_ROOT+"/retailapp/app/js/a/gadgets/pagebus/js/full/tunnel.html",
+            host:TIBBR_HOST+"/tibbr",
+            tunnelUrl: TIBBR_SITE+"/retailapp/app/js/a/gadgets/pagebus/js/full/tunnel.html",
             renderInTibbr: true
  });
 //console.log("avant oninit "+TIB.onInit().text());
 TIB.onInit(function(){
-    console.log("OnInit");
 });
 
 function setAdjustHeight() {

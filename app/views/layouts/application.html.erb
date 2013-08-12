@@ -12,7 +12,7 @@
         <!--link rel="stylesheet" href="app/CSS/windows.css">   
          <link rel="stylesheet" href="app/CSS/webfonts/ss-social/webfonts/ss-social.css">
         <link rel="stylesheet" href="app/CSS/webfonts/ss-pika/webfonts/ss-pika.css"-->
-        <script src="http://<%= app_url %>/tibbr/connect/js/TIB.js"></script>
+        <script src="<%= config_tibbr_site_root %>/tibbr/connect/js/TIB.js"></script>
         <!--script language="JavaScript" type="text/javascript" src="app/js/lib/coverflow/contentflow.js"></script-->
         <link rel="shortcut icon" href="../favicon.ico"> 
         <!--link rel="stylesheet" type="text/css" href="app/js/lib/accordion/css/demo.css" /-->
@@ -24,8 +24,9 @@
         
 
 	<script type="text/javascript" src="/retailapp//app/js/lib/accordion/js/modernizr.custom.29473.js"></script>
-        <output id="rails" data-relative_url_root="<%= app_url %>" style="display: none"></output>
-        <output id="rails2" data-client_id="<%= client_id %>" style="display: none"></output>
+        <output id="tibbr_host" data-tibbr_host="<%= config_tibbr_host %>" style="display: none"></output>
+        <output id="tibbr_site" data-tibbr_site="<%= config_tibbr_site_root %>" style="display: none"></output>
+        <output id="client_id" data-client_id="<%= client_id %>" style="display: none"></output>
 
 
         <script type="text/javascript" src="/retailapp/app/js/lib/tibbr.js"></script>

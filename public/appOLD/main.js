@@ -5,7 +5,7 @@
 requirejs.config({
     //By default load any module IDs from js/lib 
     paths:{
-    app: '../app',
+    app: '/retailapp',
     baseUrl: 'js/lib',
     jquery: 'js/lib/jquery-min',
     jqueryui: 'js/lib/jquery-ui-1.10.3/js/jquery-1.9.1',
