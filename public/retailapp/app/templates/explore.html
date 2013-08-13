@@ -1,3 +1,296 @@
+<style>
+.bubblingG {
+text-align: center;
+width:80px;
+height:50px;
+
+margin-left: 45%;
+margin-top: 20%
+}
+
+.bubblingG span {
+display: inline-block;
+vertical-align: middle;
+width: 10px;
+height: 10px;
+margin: 25px auto;
+background: #c1d72f;
+-moz-border-radius: 50px;
+-moz-animation: bubblingG 0.6s infinite alternate;
+-webkit-border-radius: 50px;
+-webkit-animation: bubblingG 0.6s infinite alternate;
+-ms-border-radius: 50px;
+-ms-animation: bubblingG 0.6s infinite alternate;
+border-radius: 50px;
+animation: bubblingG 0.6s infinite alternate;
+}
+
+#bubblingG_1 {
+-moz-animation-delay: 0s;
+-webkit-animation-delay: 0s;
+-ms-animation-delay: 0s;
+animation-delay: 0s;
+}
+
+#bubblingG_2 {
+-moz-animation-delay: 0.18s;
+-webkit-animation-delay: 0.18s;
+-ms-animation-delay: 0.18s;
+animation-delay: 0.18s;
+}
+
+#bubblingG_3 {
+-moz-animation-delay: 0.36s;
+-webkit-animation-delay: 0.36s;
+-ms-animation-delay: 0.36s;
+animation-delay: 0.36s;
+}
+
+@-moz-keyframes bubblingG {
+0% {
+width: 10px;
+height: 10px;
+background-color:#c1d72f;
+-moz-transform: translateY(0);
+}
+
+100% {
+width: 24px;
+height: 24px;
+background-color:#c1d72f;
+-moz-transform: translateY(-21px);
+}
+
+}
+
+@-webkit-keyframes bubblingG {
+0% {
+width: 10px;
+height: 10px;
+background-color:#c1d72f;
+-webkit-transform: translateY(0);
+}
+
+100% {
+width: 24px;
+height: 24px;
+background-color:#c1d72f;
+-webkit-transform: translateY(-21px);
+}
+
+}
+
+@-ms-keyframes bubblingG {
+0% {
+width: 10px;
+height: 10px;
+background-color:#c1d72f;
+-ms-transform: translateY(0);
+}
+
+100% {
+width: 24px;
+height: 24px;
+background-color:#c1d72f;
+-ms-transform: translateY(-21px);
+}
+
+}
+
+@keyframes bubblingG {
+0% {
+width: 10px;
+height: 10px;
+background-color:#c1d72f;
+transform: translateY(0);
+}
+
+100% {
+width: 24px;
+height: 24px;
+background-color:#c1d72f;
+transform: translateY(-21px);
+}
+
+}
+</style>
+
+<style>
+#floatingCirclesG{
+display: none;
+margin-top: -30px;
+margin-left: 320px;
+position:relative;
+width:41px;
+height:41px;
+-moz-transform:scale(0.6);
+-webkit-transform:scale(0.6);
+-ms-transform:scale(0.6);
+-o-transform:scale(0.6);
+transform:scale(0.6);
+}
+
+.f_circleG{
+position:absolute;
+background-color:#c1d72f;
+height:7px;
+width:7px;
+-moz-border-radius:4px;
+-moz-animation-name:f_fadeG;
+-moz-animation-duration:1.28s;
+-moz-animation-iteration-count:infinite;
+-moz-animation-direction:linear;
+-webkit-border-radius:4px;
+-webkit-animation-name:f_fadeG;
+-webkit-animation-duration:1.28s;
+-webkit-animation-iteration-count:infinite;
+-webkit-animation-direction:linear;
+-ms-border-radius:4px;
+-ms-animation-name:f_fadeG;
+-ms-animation-duration:1.28s;
+-ms-animation-iteration-count:infinite;
+-ms-animation-direction:linear;
+-o-border-radius:4px;
+-o-animation-name:f_fadeG;
+-o-animation-duration:1.28s;
+-o-animation-iteration-count:infinite;
+-o-animation-direction:linear;
+border-radius:4px;
+animation-name:f_fadeG;
+animation-duration:1.28s;
+animation-iteration-count:infinite;
+animation-direction:linear;
+}
+
+#frotateG_01{
+left:0;
+top:17px;
+-moz-animation-delay:0.48s;
+-webkit-animation-delay:0.48s;
+-ms-animation-delay:0.48s;
+-o-animation-delay:0.48s;
+animation-delay:0.48s;
+}
+
+#frotateG_02{
+left:5px;
+top:5px;
+-moz-animation-delay:0.64s;
+-webkit-animation-delay:0.64s;
+-ms-animation-delay:0.64s;
+-o-animation-delay:0.64s;
+animation-delay:0.64s;
+}
+
+#frotateG_03{
+left:17px;
+top:0;
+-moz-animation-delay:0.8s;
+-webkit-animation-delay:0.8s;
+-ms-animation-delay:0.8s;
+-o-animation-delay:0.8s;
+animation-delay:0.8s;
+}
+
+#frotateG_04{
+right:5px;
+top:5px;
+-moz-animation-delay:0.96s;
+-webkit-animation-delay:0.96s;
+-ms-animation-delay:0.96s;
+-o-animation-delay:0.96s;
+animation-delay:0.96s;
+}
+
+#frotateG_05{
+right:0;
+top:17px;
+-moz-animation-delay:1.12s;
+-webkit-animation-delay:1.12s;
+-ms-animation-delay:1.12s;
+-o-animation-delay:1.12s;
+animation-delay:1.12s;
+}
+
+#frotateG_06{
+right:5px;
+bottom:5px;
+-moz-animation-delay:1.28s;
+-webkit-animation-delay:1.28s;
+-ms-animation-delay:1.28s;
+-o-animation-delay:1.28s;
+animation-delay:1.28s;
+}
+
+#frotateG_07{
+left:17px;
+bottom:0;
+-moz-animation-delay:1.44s;
+-webkit-animation-delay:1.44s;
+-ms-animation-delay:1.44s;
+-o-animation-delay:1.44s;
+animation-delay:1.44s;
+}
+
+#frotateG_08{
+left:5px;
+bottom:5px;
+-moz-animation-delay:1.6s;
+-webkit-animation-delay:1.6s;
+-ms-animation-delay:1.6s;
+-o-animation-delay:1.6s;
+animation-delay:1.6s;
+}
+
+@-moz-keyframes f_fadeG{
+0%{
+background-color:#B5B5B5}
+
+100%{
+background-color:#c1d72f}
+
+}
+
+@-webkit-keyframes f_fadeG{
+0%{
+background-color:#B5B5B5}
+
+100%{
+background-color:#c1d72f}
+
+}
+
+@-ms-keyframes f_fadeG{
+0%{
+background-color:#B5B5B5}
+
+100%{
+background-color:#c1d72f}
+
+}
+
+@-o-keyframes f_fadeG{
+0%{
+background-color:#B5B5B5}
+
+100%{
+background-color:#c1d72f}
+
+}
+
+@keyframes f_fadeG{
+0%{
+background-color:#B5B5B5}
+
+100%{
+background-color:#c1d72f}
+
+}
+
+</style>
+ 
+
+
 <div class="resource_menu">
 
     <ul>
@@ -23,10 +316,17 @@
     </div>
 </div>
 <div class="resource-item-directory">
-
+<div class="bubblingG">
+<span id="bubblingG_1">
+</span>
+<span id="bubblingG_2">
+</span>
+<span id="bubblingG_3">
+</span>
+</div> 
 
     <ul id="test_truc">
-
+             
     </ul>   
     
 
@@ -38,7 +338,26 @@
 <ul id="more_ul">
         <li>
             <a id="more">More V</a>
+            <div id="floatingCirclesG">
+<div class="f_circleG" id="frotateG_01">
+</div>
+<div class="f_circleG" id="frotateG_02">
+</div>
+<div class="f_circleG" id="frotateG_03">
+</div>
+<div class="f_circleG" id="frotateG_04">
+</div>
+<div class="f_circleG" id="frotateG_05">
+</div>
+<div class="f_circleG" id="frotateG_06">
+</div>
+<div class="f_circleG" id="frotateG_07">
+</div>
+<div class="f_circleG" id="frotateG_08">
+</div>
+</div>
         </li>
     </ul>
+    
 </div>
 </div>    

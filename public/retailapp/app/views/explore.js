@@ -21,6 +21,8 @@ define([
         },
         render: function() {
             $(this.el).html(exploreTemplate)
+            $(this.el).find('.bubblingG').css("display","block");
+
             this.loadResults();
 
             if (this.exploreCollection.models.length > 0)
@@ -38,6 +40,10 @@ define([
             // fetch is Backbone.js native function for calling and parsing the collection url
             this.exploreCollection.fetch({
                 success: function(resources) {
+                    //Hide wait spinners 
+                    $(that.el).find('.bubblingG').css("display","none");
+                    $(that.el).find('#floatingCirclesG').css("display","none");
+
                     $(that.el).find('#more_ul').show();
                     var count = $(that.el).find("#test_truc").children().size() + resources.models[0].get("items").length + resources.models[0].get("stores").length
                     if ($(that.el).find("#test_truc").children().size() + resources.models[0].get("items").length + resources.models[0].get("stores").length== resources.models[0].get("count")) {
@@ -145,11 +151,16 @@ define([
             }
         },
         more: function() {
+            $(this.el).find('#floatingCirclesG').css("display","block");
+
             this.exploreCollection.page += 1; // Load next page
             this.loadResults();
 
+
         },
         more_menu: function(evt) {
+            //show main spinner
+            $(this.el).find('.bubblingG').css("display","block");
 
             //Clean the search box
             $(this.el).find(".search_box_input").val('');

@@ -9,7 +9,7 @@ define([
             
             },
              page: 1,
-             perpage:10,
+             perpage:3, //WILL SHOW 6 lines 3 Stores + 3 Items
              searchTerm:""
 
                
