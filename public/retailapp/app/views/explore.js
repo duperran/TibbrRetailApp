@@ -65,7 +65,7 @@ define([
                         
                         
                         
-                        $(that.el).find("#test_truc").append('<li id="res_' + curentItem.id + '">'
+                        $(that.el).find("#test_truc").append('<li id="res_item_' + curentItem.id + '">'
                                 + '<div class="explore-resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="/retailapp/app/images/default_pic.jpeg"></div><h5>' + curentItem.name + '</h5></div>'
                                 + '<div class="follow-resource"><a class="'+classButtonFollow+'" type="item" resourceid=' + curentItem.id + '><span>'+textButtonFollow +'</span></a></div></div>')
                     
@@ -95,7 +95,7 @@ define([
 
                         }
 
-                        $(that.el).find("#test_truc").append('<li id="res_' + curentItem.id + '">'
+                        $(that.el).find("#test_truc").append('<li id="res_store_' + curentItem.id + '">'
                                 + '<div class="explore-resource-details"><div class="resource-info"><div class="item_pic"  ><img class="pic" src="/retailapp/app/images/default_pic.jpeg"></div><h5>' + curentItem.name + '</h5></div>'
                                 + '<div class="follow-resource"><a class="' + classButtonFollow + '" type="store" resourceid=' + curentItem.id + '><span>' + textButtonFollow + '</span></a></div></div>')
 
@@ -183,7 +183,17 @@ define([
 
                     if (result.models.length > 0) {
                         //$(that.el).find("li#res_"+currImage.id).find(".item_pic").css("background-image",'url("'+result.models[0].get("thumb")+'")');
-                        $(that.el).find("li#res_" + currImage.id).find(".pic").attr("src", result.models[0].get("thumb"));
+                        
+                        if(search_param =="store_id"){
+                            $(that.el).find("li#res_store_" + currImage.id).find(".pic").attr("src", result.models[0].get("thumb"));
+                        }
+                        else{
+                            
+                            $(that.el).find("li#res_item_" + currImage.id).find(".pic").attr("src", result.models[0].get("thumb"));
+
+                        }
+                        
+                        
                     }
                 }
 
@@ -340,15 +350,20 @@ define([
                         }
                      
                         
-                        $(that.el).find("#test_truc").append('<li id="res_' + curentItem.get('id') + '">'
+                        
+                         if(typeOfResource == 'store'){
+                             $(that.el).find("#test_truc").append('<li id="res_store_' + curentItem.get('id') + '">'
                                 + '<div class="explore-resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="/retailapp/app/images/default_pic.jpeg"></div><h5>' + curentItem.get('name') + '</h5></div>'
                                 + '<div class="follow-resource"><a class="'+classButtonFollow+'" type="'+typeOfResource+'" resourceid=' + curentItem.get('id') + '><span>'+textButtonFollow +'</span></a></div></div>')
                     
-                         if(typeOfResource == 'store'){
                               that.load_pictures(curentItem,"store_id");
 
                          }
                          else{
+                             $(that.el).find("#test_truc").append('<li id="res_item_' + curentItem.get('id') + '">'
+                                + '<div class="explore-resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="/retailapp/app/images/default_pic.jpeg"></div><h5>' + curentItem.get('name') + '</h5></div>'
+                                + '<div class="follow-resource"><a class="'+classButtonFollow+'" type="'+typeOfResource+'" resourceid=' + curentItem.get('id') + '><span>'+textButtonFollow +'</span></a></div></div>')
+                    
                               that.load_pictures(curentItem,"item_id");
 
                          }
@@ -396,15 +411,22 @@ define([
                         }
                      
                         
-                        $(that.el).find("#test_truc").append('<li id="res_' + curentItem.get('id') + '">'
+                       
+                      if(typeOfResource == 'store'){
+                              
+                      $(that.el).find("#test_truc").append('<li id="res_store' + curentItem.get('id') + '">'
                                 + '<div class="explore-resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="/retailapp/app/images/default_pic.jpeg"></div><h5>' + curentItem.get('name') + '</h5></div>'
                                 + '<div class="follow-resource"><a class="'+classButtonFollow+'" type="'+typeOfResource+'" resourceid=' + curentItem.get('id') + '><span>'+textButtonFollow +'</span></a></div></div>')
                   
-                      if(typeOfResource == 'store'){
-                              that.load_pictures(curentItem,"store_id");
+                          that.load_pictures(curentItem,"store_id");
+                              
 
                          }
                          else{
+                              $(that.el).find("#test_truc").append('<li id="res_item_' + curentItem.get('id') + '">'
+                                + '<div class="explore-resource-details"><div class="resource-info"><div class="item_pic"><img class="pic" src="/retailapp/app/images/default_pic.jpeg"></div><h5>' + curentItem.get('name') + '</h5></div>'
+                                + '<div class="follow-resource"><a class="'+classButtonFollow+'" type="'+typeOfResource+'" resourceid=' + curentItem.get('id') + '><span>'+textButtonFollow +'</span></a></div></div>')
+                  
                               that.load_pictures(curentItem,"item_id");
 
                          }
