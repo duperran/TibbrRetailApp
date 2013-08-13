@@ -305,7 +305,8 @@ define([
          getAutocomplete: function () {
             var that = this;
             $(".search_box_input").autocomplete({
-                 source: function (request, response){
+                   minLength: '3',
+                   source: function (request, response){
                      
                      
                      that.autoExploreCollection.searchTerm = $(".search_box_input").val();
